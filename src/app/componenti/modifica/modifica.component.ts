@@ -30,12 +30,24 @@ export class ModificaComponent implements OnInit {
   condizioneVisibleNullStatoApprovazioneOs: boolean = true;
   commessaOs!: CommessaOs[];
 
+  dataCreazione: string = '';
+
   constructor(private richiestaService: RichiestaService, private elRef:ElementRef) {}
+
+
 
   ngOnInit(): void {
     const id = localStorage.getItem('idRichiesta');
     this.idRichiesta = id;
     this.prendiRichiestaConCombo();
+    this.aggiornaDataCreazione();
+  }
+
+  aggiornaDataCreazione(): void {
+    const dataCreazioneElement = document.getElementById(
+      'dataCreazione'
+    ) as HTMLInputElement;
+    this.dataCreazione = dataCreazioneElement.value;
   }
 
   prendiRichiestaConCombo() {
@@ -51,6 +63,9 @@ export class ModificaComponent implements OnInit {
 
     this.richiestaService.idRichiestaModifica(dati).subscribe((data) => {
       this.richiesta = data.elenco.content[0];
+      
+      this.dataCreazione = this.richiesta.dataCreazione;
+      
       ///////////////////////////////////////////////////////////////////////////////////////////////
 
       this.richiestaService.statoRichiestaConsapPost().subscribe((data) => {
@@ -196,6 +211,7 @@ export class ModificaComponent implements OnInit {
 
       this.richiestaService.commessaOsPost().subscribe((data) => {
         this.commessaOs = data.elenco;
+        
       });
     });
   }
