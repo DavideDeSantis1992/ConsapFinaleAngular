@@ -1,23 +1,32 @@
 import { Injectable } from '@angular/core';
+import { TokenService } from '../service/token.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  
-  private readonly STORAGE_KEY = 'access_token';
-  
-  constructor() { }
+  constructor(private token: TokenService) {}
 
   isAuthenticated(): boolean {
-    return localStorage.getItem(this.STORAGE_KEY) !== null;
+    if (typeof sessionStorage !== 'undefined') {
+      const token = sessionStorage.getItem('encrypted_Token');
+      if(token){
+        return true;
+      }
+    }
+    return false;
   }
 
   setAuthenticated(access_token: string): void {
-    localStorage.setItem(this.STORAGE_KEY, access_token);
+    if (typeof sessionStorage !== 'undefined') {
+      sessionStorage.setItem('encrypted_Token', access_token);
+    }
   }
 
   removeAuthenticated(): void {
-    localStorage.removeItem(this.STORAGE_KEY);
+    if (typeof sessionStorage !== 'undefined') {
+      sessionStorage.removeItem('secret_Key');
+      sessionStorage.removeItem('encrypted_Token');
+    }
   }
 }

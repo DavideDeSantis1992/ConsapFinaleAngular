@@ -2,6 +2,7 @@ import { Component, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { RichiestaService } from '../../service/richiesta.service';
+import { TokenService } from '../../service/token.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent {
     private router: Router,
     private richiestaService: RichiestaService,
     private authService: AuthService,
-    private elRef: ElementRef
+    private elRef: ElementRef,
+    private token: TokenService
   ) {}
 
   checkInputs(): void {
@@ -30,12 +32,14 @@ export class LoginComponent {
   login(username: string, password: string): void {
     const data = { username: this.username, password: this.password };
 
-    this.richiestaService.loginPost(data).subscribe(
+    this.richiestaService.loginRequest(data).subscribe(
       (response) => {
-        console.log('Login effettuato');
-        const accessToken = response.headers.get('access_token');
-        if (accessToken) {
-          this.authService.setAuthenticated(accessToken); // Imposta l'access token come autenticato
+        if (response.status === 200) {
+          console.log('Login effettuato');
+          const token = response.headers.get('access_token');
+          this.token.setToken(token);
+          const encryptedToken = this.token.encryptToken(this.token.getToken());
+          this.authService.setAuthenticated(encryptedToken);
           this.router.navigate(['/homeaccesso']);
         } else {
           console.error(

@@ -15,7 +15,6 @@ export class HeaderaccessoComponent {
 
   constructor(private auth : AuthService) {}
   logout(){
-    // localStorage.removeItem('access_token');
     this.auth.removeAuthenticated();
   }
   @HostListener('keydown.Tab', ['$event'])

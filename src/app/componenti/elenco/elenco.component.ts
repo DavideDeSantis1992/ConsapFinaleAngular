@@ -10,6 +10,8 @@ import {
 } from '../../service/richiesta';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+//import { Token } from '@angular/compiler';
+import { TokenService } from '../../service/token.service';
 
 @Component({
   selector: 'app-elenco',
@@ -48,7 +50,8 @@ export class ElencoComponent implements OnInit {
   constructor(
     private richiestaService: RichiestaService,
     private http: HttpClient,
-    private elRef: ElementRef
+    private elRef: ElementRef,
+    private token: TokenService
   ) {}
 
   ngOnInit(): void {
@@ -145,10 +148,15 @@ export class ElencoComponent implements OnInit {
     const statoRichiestaOsParsed =
       statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs) || null;
 
-    const accessToken = localStorage.getItem('access_token');
-    if (!accessToken) {
-      console.log('ACCESS TOKEN NON TROVATO');
-    }
+      let accessToken = '';
+      if(typeof sessionStorage !== 'undefined'){
+        const encToken = sessionStorage.getItem('encrypted_Token');
+        accessToken = this.token.decryptToken(encToken);
+        if(!accessToken){
+          console.log("Token non trovato!!!")
+        }
+      }
+
 
     if (this.numeroCaso == 0) {
       this.urlMod =
@@ -281,9 +289,13 @@ export class ElencoComponent implements OnInit {
       console.log('URL AGGIORNATO: ', this.urlMod);
     }
 
-    const accessToken = localStorage.getItem('access_token');
-    if (!accessToken) {
-      console.log('ACCESS TOKEN NON TROVATO');
+    let accessToken = '';
+    if(typeof sessionStorage !== 'undefined'){
+      const encToken = sessionStorage.getItem('encrypted_Token');
+      accessToken = this.token.decryptToken(encToken);
+      if(!accessToken){
+        console.log("ACCESS_TOKEN NON TROVATO")
+      }
     }
 
     const body = {
@@ -397,7 +409,9 @@ export class ElencoComponent implements OnInit {
   }
 
   prendiId(richiestaId: any) {
-    localStorage.setItem('idRichiesta', richiestaId.id);
+      if(typeof localStorage !== 'undefined'){
+        localStorage.setItem('idRichiesta', richiestaId.id);
+      }
   }
 
   getApplicativo() {

@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { RichiestaService } from '../../service/richiesta.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { TokenService } from '../../service/token.service';
 
 @Component({
   selector: 'app-ispeziona',
@@ -22,12 +23,14 @@ export class IspezionaComponent implements OnInit {
   pageSize:any = 5;
   pagineTotali:any=0;
 
-  constructor(private richiestaService: RichiestaService,private http: HttpClient) {}
+  constructor(private richiestaService: RichiestaService,private http: HttpClient, private token:TokenService) {}
 
   ngOnInit() {
-    const id=localStorage.getItem('idRichiesta');
-    this.idRichiesta=id;
-    this.prendiRichiesta();
+    if(typeof localStorage !== 'undefined'){
+      const id=localStorage.getItem('idRichiesta');
+      this.idRichiesta=id;
+      this.prendiRichiesta();
+    }
   }
 
   prendiRichiesta(){
@@ -84,10 +87,10 @@ export class IspezionaComponent implements OnInit {
     
     const urlElenco = `http://localhost:8080/richiesta/storico/${paginaCorrente}-${this.pageSize}`;
 
-    const accessToken = localStorage.getItem('access_token');
-    if (!accessToken) {
-      console.log("ACCESS TOKEN NON TROVATO");
-      
+    let accessToken = '';
+    if (typeof sessionStorage !== 'undefined') {
+      const encryptedToken = sessionStorage.getItem('encrypted_Token');
+      accessToken = this.token.decryptToken(encryptedToken);
     }
 
     const body = {
