@@ -11,7 +11,7 @@ export class HeaderaccessoComponent {
   flagDropdown: boolean = false;
 
   isRotated: boolean = false;
-  // gianni
+  currentUser: string = 'Rossi'; 
 
   constructor(private auth : AuthService) {}
   logout(){
