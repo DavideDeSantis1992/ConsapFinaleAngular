@@ -43,5 +43,15 @@
   .btn-secondary:hover {
     background-color: #f8f9fa; /* Cambia il colore di sfondo al passaggio del mouse */
   }
+
+  .contenitore-tabella {
+    height: auto; /* o qualsiasi altezza tu voglia */
+    overflow-y: auto;
+  }
+  
+  table {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
   
   

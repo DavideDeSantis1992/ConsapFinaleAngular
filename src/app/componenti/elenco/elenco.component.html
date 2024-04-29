@@ -1,7 +1,9 @@
 <app-headeraccesso></app-headeraccesso>
 <app-breadcrumbselenco></app-breadcrumbselenco>
 <div *ngIf="!loading || !showSpinner">
-  <section class="it-hero-wrapper it-dark it-overlay">
+  <div class="row ">
+    <div class="col-12 col-lg-12">
+  <section class="it-hero-wrapper it-dark it-overlay contenitore-tabella ">
     <!-- Immagine -->
     <div class="img-responsive-wrapper">
       <div class="img-responsive">
@@ -136,7 +138,7 @@
     </div> 
     <!-- fine filtri -->
     <br>
-    <table class="table table-success table-borderless">
+    <table class="table table-success table-borderless ">
       <thead>
         <tr class="argomento">
           <th scope="col"  (click)="getElencoNumeroTicket()">
@@ -214,7 +216,11 @@
               <span class="visually-hidden">Pagina precedente</span>
           </a>
       </li>
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> f02dd1ab84606d627b1563c2069069e4c52aa310
         <li class="page-item"><a class="page-link testoNero cursore" [style]="{color: 'black'}" (click)="prendiNumeroPagina($event)">{{currentPage}}</a></li>
         
         <li class="page-item">
@@ -248,15 +254,23 @@
     
     <br>
     <div class="btn-container ">
-      <div class="btn-example">
+      <!-- <div class="btn-example">
+<<<<<<< HEAD
         <button type="button" class="btn btn-secondary" >Stampa</button>
       </div>   
+=======
+        <button type="button" class="btn btn-secondary">Stampa</button>
+      </div>
+
+>>>>>>> f02dd1ab84606d627b1563c2069069e4c52aa310
     </div>
   </div>
   
 </section>
-
 </div>
+</div>
+
+</div> -->
 
 <!-- Spinner -->
 <div class="container centrato">

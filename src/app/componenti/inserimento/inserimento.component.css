@@ -23,3 +23,13 @@
   label{
     color: white;
   }
+
+  .contenitore-tabella {
+    height: auto; /* o qualsiasi altezza tu voglia */
+    overflow-y: auto;
+  }
+  
+  table {
+    max-width: 100%;
+    box-sizing: border-box;
+  }

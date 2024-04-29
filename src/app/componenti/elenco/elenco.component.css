@@ -72,6 +72,24 @@ nav{
   width: 40px; /* Imposta la larghezza desiderata */
 }
 
+/* .oversize {
+  max-width: 100%;
+  
+  box-sizing: border-box;
+  height: 100vh;
+  overflow-y: auto;
+} */
+
+.contenitore-tabella {
+  height: auto; /* o qualsiasi altezza tu voglia */
+  overflow-y: auto;
+}
+
+table {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 
 
 

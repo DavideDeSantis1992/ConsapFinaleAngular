@@ -5,16 +5,7 @@
           <div class="col-12">
             <div class="it-header-slim-wrapper-content">
               <a class="d-none d-lg-block navbar-brand" href="#">Portale CONSAP</a>
-              <div class="nav-mobile">
-                <nav aria-label="Navigazione secondaria">
-                  <a class="it-opener d-lg-none" data-bs-toggle="collapse" href="#menuC1" role="button" aria-expanded="false" aria-controls="menuC1">
-                    <span>Menu</span>
-                    <svg class="icon" aria-hidden="true"><use href= #it-expand></use></svg>
-                  </a> 
-                  <div class="link-list-wrapper collapse" id="menuC1">
-                  </div>
-                </nav>
-              </div>
+              
               <div class="it-header-slim-right-zone">
                 <!-- <a>Sito Consap</a> -->
                 <div class="it-access-top-wrapper">
@@ -48,16 +39,6 @@
                     </div>
                   </a>
                 </div>
-                <!-- <div class="it-right-zone">
-                  <div class="it-search-wrapper">
-                    <span class="d-none d-md-block">Cerca</span>
-                    <a class="search-link rounded-icon" aria-label="Cerca nel sito" href="#">
-                      <svg class="icon">
-                        <use href=#it-search></use>
-                      </svg>
-                    </a>
-                  </div>
-                </div> -->
               </div>
             </div>
           </div>
@@ -69,11 +50,24 @@
             <div class="col-12">
               <!--start nav-->
               <nav class="navbar navbar-expand-lg has-megamenu" aria-label="Navigazione principale">
-                <button class="custom-navbar-toggler" type="button" aria-controls="navC1" aria-expanded="false" aria-label="Mostra/Nascondi la navigazione" data-bs-toggle="navbarcollapsible" data-bs-target="#navC1">
-                  <svg class="icon">
+                <button class="custom-navbar-toggler" type="button" aria-controls="navC1" aria-expanded="false" aria-label="Mostra/Nascondi la navigazione" data-bs-toggle="navbarcollapsible" data-bs-target="#navC1" (click)="apriChiudiDropdown()">
+                  <svg class="icon" id="burgerIcon" [ngClass]="{'rotated': isRotated}" >
                     <use href="#it-burger"></use>
-                  </svg>
-                </button>
+                </svg>
+                
+              </button>
+
+              <div class="dropdown-menu" aria-labelledby="pagerChanger" id="pagerChanger">
+                <div class="link-list-wrapper">
+                  <ul class="link-list testoNero">
+                    <li><a class="list-item active cursore" aria-current="page" (click)="apriChiudiDropdown()" href="/homeaccesso"><span [style]="{color: 'green'}">Home</span></a></li>
+                    <li><a class="list-item active cursore" aria-current="page" (click)="apriChiudiDropdown()" href="/elenco"><span [style]="{color: 'green'}">Elenco</span></a></li>
+                    <li><a class="list-item active cursore" aria-current="page" (click)="apriChiudiDropdown()" href="/inserimento"><span [style]="{color: 'green'}">Inserimento</span></a></li>
+                    <!-- <li><a class="list-item active cursore" aria-current="page" (click)="apriChiudiDropdown()" ><span [style]="{color: 'green'}">Chiudi</span></a></li> -->
+                  </ul>
+                </div>
+              </div>
+              
                 <div class="navbar-collapsable" id="navC1" style="display: none;">
                   <div class="overlay" style="display: none;"></div>
                   <div class="close-div">
@@ -103,4 +97,6 @@
       </div>
     </div>
   </header>
+
+  
   
