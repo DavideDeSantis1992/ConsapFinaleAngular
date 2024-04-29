@@ -1,0 +1,14 @@
+.cursore{
+    cursor: pointer;
+}
+#pagerChanger {
+    background-color: white;
+    position: fixed;
+    margin-top: 210px;
+  }
+  
+  
+  .rotated {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease; /* Opzionale: aggiunge una transizione fluida */
+}

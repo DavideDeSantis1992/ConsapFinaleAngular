@@ -1,7 +1,9 @@
 <app-headeraccesso></app-headeraccesso>
 <app-breadcrumbselenco></app-breadcrumbselenco>
 <div *ngIf="!loading || !showSpinner">
-  <section class="it-hero-wrapper it-dark it-overlay">
+  <div class="row ">
+    <div class="col-12 col-lg-12">
+  <section class="it-hero-wrapper it-dark it-overlay contenitore-tabella ">
     <!-- Immagine -->
     <div class="img-responsive-wrapper">
       <div class="img-responsive">
@@ -136,7 +138,7 @@
     </div> 
     <!-- fine filtri -->
     <br>
-    <table class="table table-success table-borderless">
+    <table class="table table-success table-borderless ">
       <thead>
         <tr class="argomento">
           <th scope="col"  (click)="getElencoNumeroTicket()">
@@ -214,22 +216,9 @@
               <span class="visually-hidden">Pagina precedente</span>
           </a>
       </li>
-      
-        <!-- Pagina Iniziale -->
-        <!-- <li class="page-item"><a class="page-link testoNero cursore" value="1" (click)="prendiNumeroPagina($event)" >1</a></li> -->
-        
-        
-        <!-- prendi pagina successiva -->
 
         <li class="page-item"><a class="page-link testoNero cursore" [style]="{color: 'black'}" (click)="prendiNumeroPagina($event)">{{currentPage}}</a></li>
         
-        <!-- ultima pagina -->
-        <!-- <li class="page-item">
-          <a class="page-link testoNero cursore" [attr.value]="pagineTotali" (click)="prendiNumeroPagina($event)">
-              {{pagineTotali}}
-          </a>
-        </li> -->
-      
         <li class="page-item">
           <a class="page-link" (click)="paginaSuccessiva()">
             <span class="visually-hidden" >Pagina successiva</span>
@@ -265,14 +254,12 @@
         <button type="button" class="btn btn-secondary">Stampa</button>
       </div>
 
-      
-
-
-
     </div>
   </div>
   
 </section>
+</div>
+</div>
 
 </div>
 
