@@ -39,6 +39,12 @@ export class ElencoComponent implements OnInit {
   private urlMod = '';
   private urlX = `http://localhost:8080/richiesta/`;
 
+  // TODO: SISTEMARE TABULAZIONE, MOMENTANEAMENTE DISATTIVATA PER QUESTO COMPONENTE
+  @HostListener('keydown.Tab', ['$event'])
+  handleTab(event: KeyboardEvent) {
+    event.preventDefault();
+  }
+
   constructor(
     private richiestaService: RichiestaService,
     private http: HttpClient,
