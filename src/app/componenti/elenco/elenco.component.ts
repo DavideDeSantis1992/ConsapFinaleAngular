@@ -16,6 +16,7 @@ export class ElencoComponent implements OnInit {
 
   // pageSizeChiamata=5; //mai a zero
   // currentPageChiamata=1; //sempre fisso a 1
+  // gianni
   
   loading = true;
   showSpinner = true;
