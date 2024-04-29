@@ -1,0 +1,293 @@
+<app-headeraccesso></app-headeraccesso>
+<app-breadcrumbselenco></app-breadcrumbselenco>
+<div *ngIf="!loading || !showSpinner">
+  <section class="it-hero-wrapper it-dark it-overlay">
+    <!-- Immagine -->
+    <div class="img-responsive-wrapper">
+      <div class="img-responsive">
+        <div class="img-wrapper">
+          <img src="https://img.freepik.com/free-photo/grey-gradient-abstract_176532-7758.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1713830400&semt=ais" title="titolo immagine" alt="descrizione immagine">
+        </div>
+      </div>
+    </div>
+    
+    <!-- Testo -->
+    <div class="container">
+      <div class="btn-container">
+        
+        <button class="btn btn-primary" type="button" (click)="openModal()">Filtri ></button>
+        
+        <div class="modal fade" id="modalright" tabindex="-1" role="dialog" aria-labelledby="modalrightTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-right" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2 class="modal-title h5 " id="modalrightTitle">Filtra:</h2>
+                <button class="btn-close" type="button" (click)="closeModal()" aria-label="Chiudi finestra modale">
+                  <svg class="icon"><use href="#it-close"></use></svg>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="container">
+                  
+                  <div class="row">
+                    <div class="col-12">
+                      <label class="scrittaVerde" for="numeroTicketFiltro">Numero Ticket</label>
+                      <input type="text" class="form-control" id="numeroTicketFiltro" placeholder="Inserisci numero ticket" maxlength="5" 
+                             oninput="if (!this.value.trim()) { this.value = null; } else { this.value = this.value.replace(/[^0-9]/g, ''); }">
+                  </div>
+                  
+                  </div>
+                  <br>
+                  
+                  <div class="row">
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="oggettoFiltro">Oggetto</label>
+                      <input type="text" class="form-control" id="oggettoFiltro" placeholder="Inserisci oggetto" 
+                             oninput="if (!this.value.trim()) { this.value = null; }">
+                  </div>
+                  
+
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="applicativoFiltro">Applicativo</label>
+                      <select id="applicativoFiltro" class="form-control custom-select">
+                        
+                        <option value="null">Tutti</option>
+                    <ng-container *ngFor="let app of applicativo">
+                      <option value="{{app.applicativoId}}">
+                        {{ app.descApplicativo }}
+                      </option>
+                    </ng-container>
+                    </select>
+                    </div>
+                  </div>
+                  <br>
+                  
+                  <div class="row">
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="statoRichiestaConsapFiltro">Stato Richiesta CONSAP</label>
+                      <select id="statoRichiestaConsapFiltro" class="form-control custom-select"
+                      >
+                        
+                        <option value="null">Tutti</option>
+                    <ng-container *ngFor="let ric of statoRichiestaConsap">
+                      <option value="{{ric.statoRichiestaConsapId}}">
+                        {{ ric.descStatoRichiestaConsap }}
+                      </option>
+                    </ng-container>
+                    </select>
+                    </div>
+
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="statoRichiestaOsFiltro">Stato Richiesta OS</label>
+                      <select id="statoRichiestaOsFiltro" class="form-control custom-select"
+                      >
+                        
+                        <option value="null">Tutti</option>
+                    <ng-container *ngFor="let ric of statoRichiestaOs">
+                      <option value="{{ric.statoRichiestaOsId}}">
+                        {{ ric.descStatoRichiestaOs }}
+                      </option>
+                    </ng-container>
+                    </select>
+                    </div>
+                  </div>
+                  <br>
+                  
+                  <div class="row">
+
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="statoApprovazioneConsapFiltro">Stato Approvazione CONSAP</label>
+                      <select id="statoApprovazioneConsapFiltro" class="form-control custom-select"
+                      >
+                        
+                        <option value="null">Tutti</option>
+                    <ng-container *ngFor="let ric of statoApprovazioneConsap">
+                      <option value="{{ric.statoApprovazioneConsapId}}">
+                        {{ ric.descStatoApprovazioneConsap }}
+                      </option>
+                    </ng-container>
+                    </select>
+                    </div>
+
+                    <div class="col-6">
+                      <label class="scrittaVerde" for="statoApprovazioneOsFiltro">Stato Approvazione OS</label>
+                      <select id="statoApprovazioneOsFiltro" class="form-control custom-select"
+                      >
+                        
+                        <option value="null">Tutti</option>
+                    <ng-container *ngFor="let ric of statoApprovazioneOs">
+                      <option value="{{ric.statoApprovazioneOsId}}">
+                        {{ ric.descStatoApprovazioneOs }}
+                      </option>
+                    </ng-container>
+                    </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" type="button" (click)="closeModal()">Annulla</button>
+                <button class="btn btn-primary btn-sm" type="button" (click)="applicaFiltri()">Applica</button>
+                <button class="btn btn-primary btn-sm" type="button" (click)="resetFiltri()">Ripristina</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div> 
+    <!-- fine filtri -->
+    <br>
+    <table class="table table-success table-borderless">
+      <thead>
+        <tr class="argomento">
+          <th scope="col"  (click)="getElencoNumeroTicket()">
+            Numero Ticket
+            <svg id="ticketIcon" class="icon icon-primary cursore " >
+              <use [attr.xlink:href]="ordinamentoNumeroTicket === 'desc' ? '#it-collapse' : null" ></use>
+              <use [attr.xlink:href]="ordinamentoNumeroTicket === 'asc' ? '#it-expand' : null" ></use>
+          </svg>
+          
+        </th>
+          <th scope="col">Oggetto</th>
+          <th scope="col">Applicativo</th>
+          <th scope="col" (click)="getElencoDataCreazione()">
+            Data Creazione
+            <svg id="dataIcon" class="icon icon-primary cursore ">
+              <use [attr.xlink:href]="ordinamentoDataCreazione === 'desc' ? '#it-collapse' : null" ></use>
+              <use [attr.xlink:href]="ordinamentoDataCreazione === 'asc' ? '#it-expand' : null" ></use>
+          </svg>
+        </th>
+          <th scope="col">Gestione Richiesta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ric of richieste">
+          <td *ngIf="ric?.numeroTicket !== null">{{ric.numeroTicket}}</td>
+          <td>{{ric.oggetto}}</td>
+          <td>{{ric.applicativo.descApplicativo}}</td>
+          <td>{{ric.dataCreazione | date:'dd-MM-yyyy'}}</td>
+          <td>
+            <a href="/ispeziona" style="margin-right: 25px;" (click)="prendiId(ric)">
+              <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
+                <use href="#it-zoom-in" fill="black"></use>
+              </svg>
+            </a>
+          
+            <a href="/modifica" style="margin-right: 25px;"(click)="prendiId(ric)">
+              <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
+                <use href="#it-pencil" fill="black"></use>
+              </svg>
+            </a>
+          
+            
+          </td>
+          
+            
+          
+        </tr>
+        
+      </tbody>
+    </table>
+
+    <nav class="pagination-wrapper paginazione" aria-label="Esempio di navigazione con page changer">
+      <!--Inizio Numero pagine -->
+      <ul class="pagination">
+        <li class="page-item"><span class="page-link testoNero" [style]="{color: 'black'}">Vai a pagina:</span></li>
+        <!-- aggiungi una label di input per vai a pagina: -->
+        <li>
+        <input type="text" class="page-link testoNero vai" id="numeroPaginaInput" name="numeroPagina" min="1" max="{{pagineTotali}}" value="{{currentPage}}">
+      </li>
+      <br>
+      <li><div class="btn-container ">
+        <div class="btn-example">
+          <button type="button" class="btn btn-primary" (click)="prendiNumeroPaginaInput()">Vai</button>
+        </div>
+
+      </div></li>
+        
+
+        <li class="page-item"><span class="page-link testoNero" [style]="{color: 'black'}">Pagina: {{currentPage}}/{{pagineTotali}}</span></li>
+        <li class="page-item">
+          <a class="page-link" (click)="paginaPrecedente()">
+              <svg class="icon icon-primary cursore" (click)="paginaPrecedente()">
+                  <use href="#it-chevron-left"></use>
+              </svg>
+              <span class="visually-hidden">Pagina precedente</span>
+          </a>
+      </li>
+      
+        <!-- Pagina Iniziale -->
+        <!-- <li class="page-item"><a class="page-link testoNero cursore" value="1" (click)="prendiNumeroPagina($event)" >1</a></li> -->
+        
+        
+        <!-- prendi pagina successiva -->
+
+        <li class="page-item"><a class="page-link testoNero cursore" [style]="{color: 'black'}" (click)="prendiNumeroPagina($event)">{{currentPage}}</a></li>
+        
+        <!-- ultima pagina -->
+        <!-- <li class="page-item">
+          <a class="page-link testoNero cursore" [attr.value]="pagineTotali" (click)="prendiNumeroPagina($event)">
+              {{pagineTotali}}
+          </a>
+        </li> -->
+      
+        <li class="page-item">
+          <a class="page-link" (click)="paginaSuccessiva()">
+            <span class="visually-hidden" >Pagina successiva</span>
+            <svg class="icon icon-primary cursore" ><use href="#it-chevron-right" ></use></svg>
+          </a>
+        </li>
+      </ul>
+      <!-- Fine Numero pagine -->
+
+      <div class="dropdown">
+        <button class="btn btn-dropdown dropdown-toggle testoNero" type="button"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Salta alla pagina" (click)="apriChiudiDropdown()" [style]="{color: 'black'}">
+          {{paginaSelezionata}}
+          <svg class="icon icon-primary icon-sm"><use href="#it-expand"></use></svg>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="pagerChanger" id="pagerChanger">
+          <div class="link-list-wrapper">
+            <ul class="link-list testoNero">
+              <li><a class="list-item active cursore" aria-current="page" value="1" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>1/pagina</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="2" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>2/pagina</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="5" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>5/pagina</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="10" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>10/pagina</span></a></li>
+
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <br>
+    <div class="btn-container ">
+      <div class="btn-example">
+        <button type="button" class="btn btn-secondary">Stampa</button>
+      </div>
+
+      
+
+
+
+    </div>
+  </div>
+  
+</section>
+
+</div>
+
+<!-- Spinner -->
+<div class="container centrato">
+  <div class="row">
+    <div class="col-12 col-lg-12 mt-3 mt-lg-0" *ngIf="loading">
+      <br>
+      <p class="mb-3"><strong>Sto caricando le richieste...</strong></p>
+      <br>
+      <div class="progress-spinner progress-spinner-active size-xl">
+        <span class="visually-hidden">Sto preparando i dati...</span>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,78 @@
+.it-hero-wrapper {
+    position: relative;
+    background-image: url('https://img.freepik.com/free-photo/grey-gradient-abstract_176532-7758.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1713830400&semt=ais');
+    background-size: cover;
+    background-position: center;
+    height: 300px; /* Regola l'altezza dell'elemento secondo necessità */
+  }
+  
+  
+  .img-responsive-wrapper {
+    position: absolute;
+    z-index: -1;
+  }
+  .table {
+    opacity: 0.9; 
+  }
+
+  .argomento{
+    opacity: 0.9;
+  }
+ 
+
+.btn-secondary {
+  background-color: #ffffff; /* Colore di sfondo per il bottone Ripristina */
+  color: #28a745; /* Colore del testo per il bottone Ripristina */
+  border-color: #28a745; /* Colore del bordo per il bottone Ripristina */
+}
+
+.btn-secondary:hover {
+  background-color: #f8f9fa; /* Cambia il colore di sfondo al passaggio del mouse */
+}
+
+.scrittaVerde{
+  color: #28a745;
+}
+.custom-select option {
+  border: 1px solid #000; /* Colore del bordo */
+}
+
+.centrato {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-spinner {
+  width: 100px; /* Regola la larghezza dello spinner */
+  height: 100px; /* Regola l'altezza dello spinner */
+  justify-content: center;
+  align-items: center;
+  /* Aggiungi qui altri stili dello spinner se necessario */
+}
+
+.paginazione{
+  background-color:#accbb5;
+  opacity: 0.9;
+  justify-content: center;
+  /* stile del colore del testo in nero*/
+  
+
+}
+
+nav{
+  color:black
+}
+
+
+.cursore{
+  cursor: pointer;
+}
+.vai {
+  width: 40px; /* Imposta la larghezza desiderata */
+}
+
+
+
+
+
