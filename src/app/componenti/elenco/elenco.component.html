@@ -242,11 +242,11 @@
       <!-- Fine Numero pagine -->
 
       <div class="dropdown">
-        <button class="btn btn-dropdown dropdown-toggle testoNero" type="button"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Salta alla pagina" (click)="apriChiudiDropdown()" [style]="{color: 'black'}">
+        <button class="btn btn-dropdown dropdown-toggle testoNero" type="button"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Salta alla pagina" (click)="apriChiudiDropdownSize()" [style]="{color: 'black'}">
           {{paginaSelezionata}}
           <svg class="icon icon-primary icon-sm"><use href="#it-expand"></use></svg>
         </button>
-        <div class="dropdown-menu" aria-labelledby="pagerChanger" id="pagerChanger">
+        <div class="dropdown-menu" aria-labelledby="pagerChangerSize" id="pagerChangerSize">
           <div class="link-list-wrapper">
             <ul class="link-list testoNero">
               <li><a class="list-item active cursore" aria-current="page" value="1" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>1/pagina</span></a></li>

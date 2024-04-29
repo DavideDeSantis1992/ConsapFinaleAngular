@@ -4,6 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { richiestaAttualeArr } from './richiesta';
 import { response } from 'express';
 import { error } from 'console';
+import { AnySoaRecord } from 'dns';
 
 
 
@@ -227,7 +228,7 @@ export class RichiestaService {
 
   
 
-  elencoAttributiOrdinati(campo1:string,ordinamento1:string,righe:any): Observable<any> { // Cambiato il tipo di ritorno in Observable<any>
+  elencoAttributiOrdinati(campo1:string,ordinamento1:string,righe:any,numeroTicketFiltro:any,oggettoFiltro:any, applicativoFiltro:any, statoRichiestaConsapFiltro:any, statoApprovazioneConsapFiltro:any, statoApprovazioneOsFiltro:any, statoRichiestaOsFiltro:any): Observable<any> { // Cambiato il tipo di ritorno in Observable<any>
     
     const url = this.urlBase + `-${righe}?campo=${campo1}&ordinamento=${ordinamento1}`;
     
@@ -237,20 +238,23 @@ export class RichiestaService {
       console.log("ACCESS TOKEN NON TROVATO");
       
     }
+
+   
+
     
     
     const body = {
       erroreDTO: null,
       filtri: {
         "id": null,
-        "numeroTicket": null,
-        "applicativoId": null,
-        "oggetto": null,
-        "statoRichiestaConsapId": null,
+        "numeroTicket": numeroTicketFiltro,
+        "applicativo": {"applicativoId":applicativoFiltro},
+        "oggetto": oggettoFiltro,
+        "statoRichiestaConsap": {"statoRichiestaConsap":statoRichiestaConsapFiltro},
         "dataCreazione": null,
-        "statoApprovazioneConsapId": null,
-        "statoApprovazioneOsId": null,
-        "statoRichiestaOsId": null,
+        "statoApprovazioneConsap": {"statoApprovazioneConsapId":statoApprovazioneConsapFiltro},
+        "statoApprovazioneOs": {"statoApprovazioneOsId":statoApprovazioneOsFiltro},
+        "statoRichiestaOs": {"statoRichiestaOsId":statoRichiestaOsFiltro},
         "dataStimaFinale": null,
         "importo": null,
         "commessaOsId": null
