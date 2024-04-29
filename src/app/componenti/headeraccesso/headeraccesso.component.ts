@@ -11,6 +11,7 @@ export class HeaderaccessoComponent {
   flagDropdown: boolean = false;
 
   isRotated: boolean = false;
+  // gianni
 
   constructor(private auth : AuthService) {}
   logout(){
