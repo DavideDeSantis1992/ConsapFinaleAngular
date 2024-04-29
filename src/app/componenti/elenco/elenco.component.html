@@ -1,5 +1,7 @@
 <app-headeraccesso></app-headeraccesso>
-<app-breadcrumbselenco></app-breadcrumbselenco>
+<!-- <app-breadcrumbselenco></app-breadcrumbselenco> -->
+<app-percorso [breadcrumbNames]="['Home', 'Elenco']"></app-percorso>
+
 <div *ngIf="!loading || !showSpinner">
   <section class="it-hero-wrapper it-dark it-overlay">
     <!-- Immagine -->

@@ -4,6 +4,7 @@ import { Applicativo, StatoApprovazioneConsap, StatoApprovazioneOs, StatoRichies
 import { error } from 'console';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class ElencoComponent implements OnInit {
 
   private urlX = `http://localhost:8080/richiesta/`;
 
-  constructor(private richiestaService: RichiestaService,private http: HttpClient) {}
+  constructor(private richiestaService: RichiestaService,private http: HttpClient, private router:Router, private route:ActivatedRoute) {}
 
   ngOnInit(): void {
     // Nascondi il contenuto fino alla fine del timer
