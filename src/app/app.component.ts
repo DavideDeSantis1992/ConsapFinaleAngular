@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
 
@@ -7,22 +7,8 @@ import { AuthService } from './auth/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent{
 
   title = 'consap';
-  
-  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    // this.redirectIfRequired();
-  }
-
-  // redirectIfRequired(): void {
-  //   if (this.authService.isAuthenticated()) {
-      
-  //     if (this.router.url === 'localhost:4200/login' || this.router.url === '/home' || this.router.url === '/') {
-  //       this.router.navigate(['/homeaccesso']);
-  //     }
-  //   }
-  // }
 }

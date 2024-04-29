@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RichiestaService } from '../../service/richiesta.service';
-import { richiestaAttualeArr } from '../../service/richiesta';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -9,15 +8,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./ispeziona.component.css']
 })
 export class IspezionaComponent implements OnInit {
-
-  // responseData: any;
+  @HostListener('keydown.Tab', ['$event'])
+  handleTab(event: KeyboardEvent) {
+    event.preventDefault();
+  }
 
   idRichiesta: any;
   
   richiesta:any;
   richiestaShow:any;
 
-  currentPage: any = 1; // fisso a 1
+  currentPage: any = 1;
   pageSize:any = 5;
   pagineTotali:any=0;
 
@@ -31,7 +32,6 @@ export class IspezionaComponent implements OnInit {
 
   prendiRichiesta(){
     const idParsato = parseInt(this.idRichiesta);
-    console.log("idRichiesta Parsato: ",idParsato);
     
     const dati = {
       "erroreDTO": null,
@@ -51,26 +51,11 @@ export class IspezionaComponent implements OnInit {
       },
       "elenco": null
   };
-    console.log("ID RICHIESTA DA CERCARE: ",dati);
     this.richiestaService.idRichiesta(dati).subscribe((data) => {
-
-    
-    
     this.richiesta=data.elenco.content;
-    console.log("RICHIESTE STORICHE INVERTITE: ",this.richiesta);
-
     const indice = 0;
-    console.log("indice richiesta storica",indice);
-    
     this.pagineTotali=data.elenco.totalPages;
-        
-        console.log("pagine Totali: ",this.pagineTotali);
-
-    this.richiestaShow = data.elenco.content[indice];
-    console.log("RICHIESTA SHOW: ",this.richiestaShow);
-    console.log("RICHIESTE STORICHE: ",data.elenco.content);
-    
-    
+    this.richiestaShow = data.elenco.content[indice];    
   }, (error) => {
     console.error(error);
   })
@@ -78,23 +63,17 @@ export class IspezionaComponent implements OnInit {
 
   visualizzaRichiestaStorica(elementoStorico : any) {
     const indice = this.richiesta.indexOf(elementoStorico);
-    console.log("Indice elemento storico: ",indice);
     this.richiestaShow = this.richiesta[indice];
   }
 
   prendiNumeroPaginaInput(){
-    // devo prendere il valore del campo con id "numeroPaginaInput"
       const numeroPaginaInput = (<HTMLInputElement>document.getElementById('numeroPaginaInput')).value;
       if(numeroPaginaInput<=this.pagineTotali){
       this.currentPage=numeroPaginaInput;
   
       this.numeroPaginataStorica(numeroPaginaInput).subscribe(data=>{
         this.richiesta=data.elenco.content;
-        console.log("Elenco richieste paginate: ",data.elenco.content)
-        // console.log("Richieste: "+ JSON.stringify(this.richieste));
         this.pagineTotali=data.elenco.totalPages;
-        
-        console.log("pagine Totali: ",this.pagineTotali);
       })
     } else {
       alert("Numero pagina non presente, pagine totali: "+this.pagineTotali);
@@ -129,34 +108,27 @@ export class IspezionaComponent implements OnInit {
 
   paginaPrecedente() {
     if (this.currentPage > 1) {
-      let currentPageCopy = this.currentPage; // Salviamo il valore corrente di currentPage in una variabile locale
-      currentPageCopy--; // Decrementiamo il valore per la pagina precedente
+      let currentPageCopy = this.currentPage;
+      currentPageCopy--;
   
       this.numeroPaginataStorica(currentPageCopy).subscribe(data => {
-        this.currentPage = currentPageCopy; // Aggiorniamo this.currentPage con il valore corretto
+        this.currentPage = currentPageCopy; 
         this.richiesta = data.elenco.content;
-        console.log("Elenco richieste paginate: ", data.elenco.content);
         this.pagineTotali = data.elenco.totalPages;
-        console.log("Pagina corrente: ", this.currentPage);
-        console.log("Pagine Totali: ", this.pagineTotali);
       });
     }
   }
   
   paginaSuccessiva() {
     if (this.currentPage < this.pagineTotali) {
-      let currentPageCopy = this.currentPage; // Salviamo il valore corrente di currentPage in una variabile locale
-      currentPageCopy++; // Incrementiamo il valore per la pagina successiva
+      let currentPageCopy = this.currentPage;
+      currentPageCopy++;
   
       this.numeroPaginataStorica(currentPageCopy).subscribe(data => {
-        this.currentPage = currentPageCopy; // Aggiorniamo this.currentPage con il valore corretto
+        this.currentPage = currentPageCopy; 
         this.richiesta = data.elenco.content;
-        console.log("Elenco richieste paginate: ", data.elenco.content);
         this.pagineTotali = data.elenco.totalPages;
-        console.log("Pagina corrente: ", this.currentPage);
-        console.log("Pagine Totali: ", this.pagineTotali);
       });
     }
-  }
-  
+  }  
 }

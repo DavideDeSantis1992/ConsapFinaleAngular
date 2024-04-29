@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import {
   Applicativo,
   CommessaOs,
@@ -29,7 +29,7 @@ export class InserimentoComponent implements OnInit {
 
   dataCreazione: string = '';
 
-  constructor(private connex: RichiestaService) {}
+  constructor(private connex: RichiestaService, private elRef: ElementRef) {}
 
   ngOnInit(): void {
     this.getApplicativo();
@@ -40,8 +40,10 @@ export class InserimentoComponent implements OnInit {
     this.getCommessaOs();
   }
 
-  aggiornaDataCreazione():void{
-    const dataCreazioneElement = document.getElementById('dataCreazione') as HTMLInputElement;
+  aggiornaDataCreazione(): void {
+    const dataCreazioneElement = document.getElementById(
+      'dataCreazione'
+    ) as HTMLInputElement;
     this.dataCreazione = dataCreazioneElement.value;
   }
 
@@ -259,5 +261,19 @@ export class InserimentoComponent implements OnInit {
   checkNumeroTicket(event: any) {
     const inputText = event.target.value;
     this.showErrorNumeroTicket = !/^\d{5}$/.test(inputText);
+  }
+
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Tab') {
+      const inputs = this.elRef.nativeElement.querySelectorAll('input');
+      const lastInput = inputs[inputs.length - 1];
+      if (document.activeElement === lastInput) {
+        event.preventDefault();
+        const firstInput = inputs[0];
+        if (firstInput) {
+          firstInput.focus();
+        }
+      }
+    }
   }
 }

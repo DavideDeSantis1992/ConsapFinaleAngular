@@ -18,18 +18,18 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="numeroTicket">Numero Ticket</label>
-                <input type="text" class="form-control" id="numeroTicket" [value]="richiesta?.numeroTicket" readonly>
+                <input type="text" class="form-control" id="numeroTicket" [value]="richiesta?.numeroTicket" readonly autocomplete="off" tabindex="1">
             </div>
             
             <div class="col-md-6">
-                <label for="oggetto">Oggetto</label>
-                <input type="text" class="form-control" id="oggetto" 
+                <label for="oggetto">Oggetto</label> 
+                <input type="text" class="form-control" id="oggetto" autocomplete="off" tabindex="1"
                 [value]="richiesta?.oggetto"
                 readonly>
             </div>
             <div class="col-md-3" *ngIf="richiesta && richiesta.applicativo">
                 <label for="applicativo">Applicativo</label>
-                <input type="text" class="form-control" id="applicativo"
+                <input type="text" class="form-control" id="applicativo" autocomplete="off" tabindex="1"
                        [value]="richiesta.applicativo.descApplicativo || '-'"
                        
                        [readonly]="true"
@@ -47,7 +47,7 @@
             <div class="col-md-3">
                 <label for="statoRichiestaConsap">Stato Richiesta CONSAP</label>
                 
-                <select id="statoRichiestaConsap" class="form-control custom-select">
+                <select id="statoRichiestaConsap" class="form-control custom-select" tabindex="1">
                     <option value="" [disabled]="!condizioneVisibleNullStatoRichiestaConsap">-</option>
                     <ng-container *ngFor="let stato of statoRichiestaConsap">
                         <option [value]="stato.statoRichiestaConsapId" [selected]="richiesta?.statoRichiestaConsap?.statoRichiestaConsapId === stato.statoRichiestaConsapId" [disabled]="!stato.abilitato">
@@ -61,7 +61,7 @@
             <div class="col-md-3">
                 <label for="statoRichiestaOs">Stato Richiesta OS</label>
                 
-                <select id="statoRichiestaOs" class="form-control custom-select">
+                <select id="statoRichiestaOs" class="form-control custom-select" tabindex="1">
                     <option value="" [disabled]="!condizioneVisibleNullStatoRichiestaOs">-</option>
                     <ng-container *ngFor="let stato of statoRichiestaOs">
                         <option [value]="stato.statoRichiestaOsId" [selected]="richiesta?.statoRichiestaOs?.statoRichiestaOsId === stato.statoRichiestaOsId"
@@ -76,7 +76,7 @@
             <div class="col-md-3">
                 <label for="statoApprovazioneConsap">Stato Approvazione CONSAP</label>
                 
-                <select id="statoApprovazioneConsap" class="form-control custom-select">
+                <select id="statoApprovazioneConsap" class="form-control custom-select" tabindex="1">
                     <option value="" [disabled]="!condizioneVisibleNullStatoApprovazioneConsap">-</option>
                     <ng-container *ngFor="let stato of statoApprovazioneConsap">
                         <option [value]="stato.statoApprovazioneConsapId" [selected]="richiesta?.statoApprovazioneConsap?.statoApprovazioneConsapId === stato.statoApprovazioneConsapId"
@@ -90,7 +90,7 @@
             <div class="col-md-3">
                 <label for="statoApprovazioneOs">Stato Approvazione OS</label>
                 
-                <select id="statoApprovazioneOs" class="form-control custom-select">
+                <select id="statoApprovazioneOs" class="form-control custom-select" tabindex="1">
                     <option value="" [disabled]="!condizioneVisibleNullStatoApprovazioneOs">-</option>
                     <ng-container *ngFor="let stato of statoApprovazioneOs">
                         <option [value]="stato.statoApprovazioneOsId" [selected]="richiesta?.statoApprovazioneOs?.statoApprovazioneOsId === stato.statoApprovazioneOsId"
@@ -105,19 +105,19 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="dataCreazione">Data Creazione</label>
-                <input type="date" class="form-control" id="dataCreazione"
+                <input type="date" class="form-control" id="dataCreazione" autocomplete="off" tabindex="1"
                 [value]="richiesta?.dataCreazione"
                 readonly>
             </div>
             <div class="col-md-3">
                 <label for="dataStimaFinale">Data Stima Fine</label>
-                <input type="date" class="form-control" id="dataStimaFinale"
+                <input type="date" class="form-control" id="dataStimaFinale" autocomplete="off" tabindex="1"
                 [value]="richiesta?.dataStimaFinale ? richiesta.dataStimaFinale : '-'"
                 >
             </div>
             <div class="col-md-3">
                 <label for="commessaOs">Commessa OS</label>
-                <select id="commessaOs" class="form-control custom-select">
+                <select id="commessaOs" class="form-control custom-select" tabindex="1">
                     <option value="">-</option>
                     <ng-container *ngFor="let com of commessaOs">
                         <option [value]="com.commessaOsId" [selected]="richiesta?.commessaOs?.commessaOsId === com.commessaOsId">
@@ -130,7 +130,7 @@
             
             <div class="col-md-3">
                 <label for="importo">Importo</label>
-                <input type="text" class="form-control" id="importo"
+                <input type="text" class="form-control" id="importo" autocomplete="off" (keydown)="handleKeyDown($event)" tabindex="1"
                 [value]="richiesta?.importo"
                 >
             </div>

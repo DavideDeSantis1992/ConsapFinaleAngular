@@ -19,16 +19,16 @@
             <div class="col-md-3">
                 <label for="numeroTicket">Numero Ticket</label>
                 <input type="text" class="form-control" id="numeroTicket" placeholder="Inserisci numero ticket" maxlength="5"
-                    (input)="checkNumeroTicket($event)">
+                    (input)="checkNumeroTicket($event)" autocomplete="off" tabindex="1">
                 <span *ngIf="showErrorNumeroTicket" class="text-primary">5 caratteri obbligatori</span>
             </div>
             <div class="col-md-6">
                 <label for="oggetto">Oggetto</label>
-                <input type="text" class="form-control" id="oggetto" placeholder="Inserisci oggetto">
+                <input type="text" class="form-control" id="oggetto" placeholder="Inserisci oggetto" autocomplete="off" tabindex="1">
             </div>
             <div class="col-md-3">
                 <label for="applicativo">Applicativo</label>
-                <select id="applicativo" class="form-control custom-select">
+                <select id="applicativo" class="form-control custom-select" tabindex="1">
                     <option disabled selected hidden value="">- Selezione Applicativo -</option>
                 <ng-container *ngFor="let app of applicativo">
                   <option value="{{app.applicativoId}}">
@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="statoRichiestaConsap">Stato Richiesta CONSAP</label>
-                <select id="statoRichiestaConsap" class="form-control custom-select">
+                <select id="statoRichiestaConsap" class="form-control custom-select" tabindex="1">
                     <!-- <option disabled selected hidden value="">- Selezione Stato Ric. CONSAP -</option> -->
                     <option value="">-</option>
                     <option *ngIf="statoRichiestaConsap && statoRichiestaConsap.length > 0"
@@ -55,7 +55,7 @@
             </div>
             <div class="col-md-3">
                 <label for="statoRichiestaOs">Stato Richiesta OS</label>
-                <select id="statoRichiestaOs" class="form-control custom-select">
+                <select id="statoRichiestaOs" class="form-control custom-select" tabindex="1">
                     <option value="">-</option>
                     <option *ngIf="statoRichiestaOs && statoRichiestaOs.length > 0"
                         [value]="statoRichiestaOs[0].statoRichiestaOsId">
@@ -65,7 +65,7 @@
             </div>
             <div class="col-md-3">
                 <label for="statoApprovazioneConsap">Stato Approvazione CONSAP</label>
-                <select id="statoApprovazioneConsap" class="form-control custom-select">
+                <select id="statoApprovazioneConsap" class="form-control custom-select" tabindex="1">
                     <option value="">-</option>
                     <option *ngIf="statoApprovazioneConsap && statoApprovazioneConsap.length > 0"
                         [value]="statoApprovazioneConsap[0].statoApprovazioneConsapId">
@@ -75,7 +75,7 @@
             </div>
             <div class="col-md-3">
                 <label for="statoApprovazioneOs">Stato Approvazione OS</label>
-                <select id="statoApprovazioneOs" class="form-control custom-select">
+                <select id="statoApprovazioneOs" class="form-control custom-select" tabindex="1">
                     <option value="">-</option>
                     <option *ngIf="statoApprovazioneOs && statoApprovazioneOs.length > 0"
                         [value]="statoApprovazioneOs[0].statoApprovazioneOsId">
@@ -88,18 +88,18 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="dataCreazione">Data Creazione</label>
-                <input type="date" class="form-control" id="dataCreazione" (input)="aggiornaDataCreazione()">
+                <input type="date" class="form-control" id="dataCreazione" (input)="aggiornaDataCreazione()" autocomplete="off" tabindex="1">
             </div>
             <div class="col-md-3">
                 <label for="dataStimaFinale">Data Stima Fine</label>
-                <input type="date" class="form-control" id="dataStimaFinale"
+                <input type="date" class="form-control" id="dataStimaFinale " autocomplete="off"
                 [min]="dataCreazione"
                 
                 >
             </div>
             <div class="col-md-3">
                 <label for="commessaOs">Commessa OS</label>
-                <select id="commessaOs" class="form-control custom-select">
+                <select id="commessaOs" class="form-control custom-select" tabindex="1">
                     <option value="">-</option>
                 <ng-container *ngFor="let com of commessaOs">
                   <option value="{{com.commessaOsId}}">
@@ -110,8 +110,8 @@
             </div>
             <div class="col-md-3">
                 <label for="importo">Importo</label>
-                <input type="text" class="form-control" id="importo" placeholder="Inserisci importo"
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, '')">
+                <input type="text" class="form-control" id="importo" placeholder="Inserisci importo" tabindex="1"
+                    oninput="this.value = this.value.replace(/[^0-9.]/g, '')" autocomplete="off" (keydown)="handleKeyDown($event)">
             </div>
         </div>
         <br>

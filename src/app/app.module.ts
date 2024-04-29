@@ -52,7 +52,7 @@ import { BreadcrumbsmodificaComponent } from './componenti/modifica/breadcrumbsm
     AppRoutingModule,
     CommonModule,
     FormsModule,
-    NgbDropdownModule,
+   NgbDropdownModule,
     HttpClientModule,
     RouterModule
   ],

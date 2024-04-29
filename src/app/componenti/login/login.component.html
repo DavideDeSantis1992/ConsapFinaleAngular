@@ -11,14 +11,16 @@
       <use xlink:href="#it-user"></use>
     </svg>
     <label for="username" class="input-label"></label>
-    <input type="text" class="form-control" id="username" placeholder="Username" [(ngModel)]="username" (input)="checkInputs()">
+    <input type="text" class="form-control" id="username" placeholder="Username" [(ngModel)]="username" (input)="checkInputs()" autocomplete="off"
+    tabindex="1">
   </div>
   <div class="form-group">
     <svg class="icon icon-sm" fill="currentColor">
       <use xlink:href="#it-key"></use>
     </svg>
     <label for="password" class="input-label"></label>
-    <input type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]="password" (input)="checkInputs()">
+    <input type="password" class="form-control" id="password" placeholder="Password" [(ngModel)]="password" (input)="checkInputs()" autocomplete="off"
+    (keydown)="handleKeyDown($event)" tabindex="1">
   </div>
   <div class="py-1">
     <div class="btn-example">

@@ -1,293 +1,206 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { RichiestaService } from '../../service/richiesta.service';
-import { CommessaOs, StatoApprovazioneConsap, StatoApprovazioneOs, StatoRichiestaConsap, StatoRichiestaOs } from '../../service/richiesta';
-import { error } from 'console';
-import { FactoryTarget } from '@angular/compiler';
+import {
+  CommessaOs,
+  StatoApprovazioneConsap,
+  StatoApprovazioneOs,
+  StatoRichiestaConsap,
+  StatoRichiestaOs,
+} from '../../service/richiesta';
 
 @Component({
   selector: 'app-modifica',
   templateUrl: './modifica.component.html',
-  styleUrl: './modifica.component.css'
+  styleUrl: './modifica.component.css',
 })
 export class ModificaComponent implements OnInit {
   idRichiesta: any;
-  richiesta:any;
-  // stato richiesta Consap
-
+  richiesta: any;
   statoRichiestaConsap!: StatoRichiestaConsap[];
   idEreditatoStatoRichiestaConsap!: any;
   condizioneVisibleNullStatoRichiestaConsap: boolean = true;
-  // letturaStatoRichiestaConsap: boolean = false;
-
-  // stato richiesta Os
-
   statoRichiestaOs!: StatoRichiestaOs[];
   idEreditatoStatoRichiestaOs!: any;
   condizioneVisibleNullStatoRichiestaOs: boolean = true;
-  // condizioneStatoRichiestaOs: boolean = false;
-  // letturaStatoRichiestaOs: boolean = false;
-
-  // stato approvazione Consap
-
   statoApprovazioneConsap!: StatoApprovazioneConsap[];
   idEreditatoStatoApprovazioneConsapBox!: any;
   condizioneVisibleNullStatoApprovazioneConsap: boolean = true;
-  // letturaStatoApprovazioneConsap: boolean = false;
-
-  // stato approvazione Os
-
   statoApprovazioneOs!: StatoApprovazioneOs[];
   idEreditatoStatoApprovazioneOsBox!: any;
   condizioneVisibleNullStatoApprovazioneOs: boolean = true;
-  // condizioneStatoApprovazioneOs: boolean = false;
-  // letturaStatoApprovazioneOs: boolean = false;
-  
-  // commessa Os
   commessaOs!: CommessaOs[];
 
-  
-
-  constructor(private richiestaService: RichiestaService) { }
+  constructor(private richiestaService: RichiestaService, private elRef:ElementRef) {}
 
   ngOnInit(): void {
-    const id=localStorage.getItem('idRichiesta');
-    this.idRichiesta=id;
-    this.prendiRichiestaConCombo()
-
-    // console.log("STATO RICHIESTA CONSAP PASSATO : ", this.statoRichiestaConsapPassato.descStatoRichiestaConsap);
-    
+    const id = localStorage.getItem('idRichiesta');
+    this.idRichiesta = id;
+    this.prendiRichiestaConCombo();
   }
 
-  
-
-  
-
- 
-
-  
-
-  prendiRichiestaConCombo(){
+  prendiRichiestaConCombo() {
     const idParsato = parseInt(this.idRichiesta);
-    console.log("idRichiesta Parsato: ",idParsato);
-    
+
     const dati = {
-      "erroreDTO": null,
-      "filtri": {
-          "id": idParsato,
-          
+      erroreDTO: null,
+      filtri: {
+        id: idParsato,
       },
-      "elenco": null
-  };
-    
-  this.richiestaService.idRichiestaModifica(dati).subscribe((data) => {
-    this.richiesta = data.elenco.content[0];
-    console.log("RICHIESTA DA PASSARE :", this.richiesta);
-///////////////////////////////////////////////////////////////////////////////////////////////
+      elenco: null,
+    };
 
-    // controllo stato richiesta consap
-    
+    this.richiestaService.idRichiestaModifica(dati).subscribe((data) => {
+      this.richiesta = data.elenco.content[0];
+      ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    this.richiestaService.statoRichiestaConsapPost().subscribe((data) => {
-
-      if (this.richiesta.statoRichiestaConsap == null) {
-        this.idEreditatoStatoRichiestaConsap = null;
-    } else {
-        this.idEreditatoStatoRichiestaConsap = this.richiesta.statoRichiestaConsap.statoRichiestaConsapId;
-    }
-    console.log("statoRichiestaConsapId: ", this.idEreditatoStatoRichiestaConsap);
-
+      this.richiestaService.statoRichiestaConsapPost().subscribe((data) => {
+        if (this.richiesta.statoRichiestaConsap == null) {
+          this.idEreditatoStatoRichiestaConsap = null;
+        } else {
+          this.idEreditatoStatoRichiestaConsap =
+            this.richiesta.statoRichiestaConsap.statoRichiestaConsapId;
+        }
         this.statoRichiestaConsap = data.elenco;
         const ultimo = this.statoRichiestaConsap.length;
         const penultimo = this.statoRichiestaConsap.length - 1;
-        
-        
+
         if (this.idEreditatoStatoRichiestaConsap == null) {
-          // Se lo stato è null, abilita solo il primo elemento
           this.statoRichiestaConsap.forEach((elemento, indice) => {
-            
-              this.statoRichiestaConsap[indice].abilitato = (indice === 0);
+            this.statoRichiestaConsap[indice].abilitato = indice === 0;
           });
-      } else {
+        } else {
           this.condizioneVisibleNullStatoRichiestaConsap = false;
-          if(this.idEreditatoStatoRichiestaConsap<=penultimo){
+          if (this.idEreditatoStatoRichiestaConsap <= penultimo) {
             this.statoRichiestaConsap.forEach((elemento, indice) => {
-              
-                // abilita l'elemento quello attuale e il precedente
-                this.statoRichiestaConsap[indice].abilitato = (indice === (this.idEreditatoStatoRichiestaConsap-1) || indice === this.idEreditatoStatoRichiestaConsap);
-                
+              this.statoRichiestaConsap[indice].abilitato =
+                indice === this.idEreditatoStatoRichiestaConsap - 1 ||
+                indice === this.idEreditatoStatoRichiestaConsap;
             });
           }
-          // se lo stato è uguale a ultimo, abilita l'elemento attuale e disabilita i precedenti
           if (this.idEreditatoStatoRichiestaConsap == ultimo) {
             this.statoRichiestaConsap.forEach((elemento, indice) => {
-              
-              console.log("indice ultimo array SRC: ", indice);
-              
-                this.statoRichiestaConsap[indice].abilitato = (indice === this.idEreditatoStatoRichiestaConsap-1);
-              });
+              this.statoRichiestaConsap[indice].abilitato =
+                indice === this.idEreditatoStatoRichiestaConsap - 1;
+            });
           }
-      }
-      
-      
-      
-      
-
-      console.log('STATO RICHIESTA CONSAP:', this.statoRichiestaConsap);
-    });
-  // OK FUNZIONA
-
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-    // controllo stato richiesta Os
-    this.richiestaService.statoRichiestaOsPost().subscribe((data) => {
-      this.statoRichiestaOs = data.elenco;
-      const ultimo = this.statoRichiestaOs.length;
-      const penultimo = ultimo - 1;
-  
-      if (this.richiesta.statoRichiestaOs == null) {
-          this.idEreditatoStatoRichiestaOs = null;
-      } else {
-          this.idEreditatoStatoRichiestaOs = this.richiesta.statoRichiestaOs.statoRichiestaOsId;
-      }
-      console.log("statoRichiestaOsId: ", this.idEreditatoStatoRichiestaOs);
-  
-      if (this.idEreditatoStatoRichiestaOs == null) {
-        console.log("CAVOLO ID NULL");
-        
-          // Se lo stato è null, abilita solo il primo elemento
-          this.statoRichiestaOs.forEach((elemento, indice) => {
-              this.statoRichiestaOs[indice].abilitato = (indice === 0);
-              console.log("indice 0: ", indice);
-              
-          });
-      } else {
-          this.condizioneVisibleNullStatoRichiestaOs = false;
-          if (this.idEreditatoStatoRichiestaOs <= penultimo) {
-              this.statoRichiestaOs.forEach((elemento, indice) => {
-                  // abilita l'elemento corrente e il precedente
-                  this.statoRichiestaOs[indice].abilitato = (indice === (this.idEreditatoStatoRichiestaOs - 1) || indice === this.idEreditatoStatoRichiestaOs);
-              });
-          }
-          // se lo stato è uguale a ultimo, abilita l'elemento corrente e disabilita i precedenti
-          if (this.idEreditatoStatoRichiestaOs == ultimo) {
-              this.statoRichiestaOs.forEach((elemento, indice) => {
-                  this.statoRichiestaOs[indice].abilitato = (indice === penultimo);
-              });
-          }
-      }
-  
-      console.log('STATO RICHIESTA OS:', this.statoRichiestaOs);
-  });
-  
-  // OK FUNZIONA
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////
-    
-  // controllo stato approvazione consap
-
-  this.richiestaService.statoApprovazioneConsapPost().subscribe((data) => {
-    this.statoApprovazioneConsap = data.elenco;
-    const ultimo = this.statoApprovazioneConsap.length;
-    const penultimo = ultimo - 1;
-
-    if (this.richiesta.statoApprovazioneConsap == null) {
-        this.idEreditatoStatoApprovazioneConsapBox = null;
-    } else {
-        this.idEreditatoStatoApprovazioneConsapBox = this.richiesta.statoApprovazioneConsap.statoApprovazioneConsapId;
-    }
-    console.log("statoApprovazioneConsapId: ", this.idEreditatoStatoApprovazioneConsapBox);
-
-    if (this.idEreditatoStatoApprovazioneConsapBox == null) {
-        // Se lo stato è null, abilita solo il primo elemento
-        this.statoApprovazioneConsap.forEach((elemento, indice) => {
-            this.statoApprovazioneConsap[indice].abilitato = (indice === 0);
-        });
-    } else {
-        this.condizioneVisibleNullStatoApprovazioneConsap = false;
-        if (this.idEreditatoStatoApprovazioneConsapBox <= penultimo) {
-            this.statoApprovazioneConsap.forEach((elemento, indice) => {
-                // abilita l'elemento corrente e il precedente
-                this.statoApprovazioneConsap[indice].abilitato = (indice === (this.idEreditatoStatoApprovazioneConsapBox - 1) || indice === this.idEreditatoStatoApprovazioneConsapBox);
-            });
         }
-        // se lo stato è uguale a ultimo, abilita l'elemento corrente e disabilita i precedenti
-        if (this.idEreditatoStatoApprovazioneConsapBox == ultimo) {
-            this.statoApprovazioneConsap.forEach((elemento, indice) => {
-                this.statoApprovazioneConsap[indice].abilitato = (indice === penultimo);
-            });
-        }
-    }
-
-    console.log('STATO APPROVAZIONE CONSAP:', this.statoApprovazioneConsap);
-});
-
-// OK FUNZIONA
-
-  //////////////////////////////////////////////////////////////////////////////////////////////
-    
-  // controllo stato approvazione os
-
-  this.richiestaService.statoApprovazioneOsPost().subscribe((data) => {
-    this.statoApprovazioneOs = data.elenco;
-    const ultimo = this.statoApprovazioneOs.length;
-    const penultimo = ultimo - 1;
-
-    if (this.richiesta.statoApprovazioneOs == null) {
-        this.idEreditatoStatoApprovazioneOsBox = null;
-    } else {
-        this.idEreditatoStatoApprovazioneOsBox = this.richiesta.statoApprovazioneOs.statoApprovazioneOsId;
-    }
-    console.log("statoApprovazioneOsId: ", this.idEreditatoStatoApprovazioneOsBox);
-
-    if (this.idEreditatoStatoApprovazioneOsBox == null) {
-        // Se lo stato è null, abilita solo il primo elemento
-        this.statoApprovazioneOs.forEach((elemento, indice) => {
-            this.statoApprovazioneOs[indice].abilitato = (indice === 0);
-        });
-    } else {
-        this.condizioneVisibleNullStatoApprovazioneOs = false;
-        if (this.idEreditatoStatoApprovazioneOsBox <= penultimo) {
-            this.statoApprovazioneOs.forEach((elemento, indice) => {
-                // abilita l'elemento corrente e il precedente
-                this.statoApprovazioneOs[indice].abilitato = (indice === (this.idEreditatoStatoApprovazioneOsBox - 1) || indice === this.idEreditatoStatoApprovazioneOsBox);
-            });
-        }
-        // se lo stato è uguale a ultimo, abilita l'elemento corrente e disabilita i precedenti
-        if (this.idEreditatoStatoApprovazioneOsBox == ultimo) {
-            this.statoApprovazioneOs.forEach((elemento, indice) => {
-                this.statoApprovazioneOs[indice].abilitato = (indice === penultimo);
-            });
-        }
-    }
-
-    console.log('STATO APPROVAZIONE OS:', this.statoApprovazioneOs);
-});
-
-    
-
-    /////////////////////////////////////////////////////////////////////////////////////////
-
-    this.richiestaService.commessaOsPost().subscribe((data) => {
-      this.commessaOs = data.elenco;
-      console.log('COMMESSA OS:', this.commessaOs);
       });
 
+      ///////////////////////////////////////////////////////////////////////////////////////////////
 
+      this.richiestaService.statoRichiestaOsPost().subscribe((data) => {
+        this.statoRichiestaOs = data.elenco;
+        const ultimo = this.statoRichiestaOs.length;
+        const penultimo = ultimo - 1;
+
+        if (this.richiesta.statoRichiestaOs == null) {
+          this.idEreditatoStatoRichiestaOs = null;
+        } else {
+          this.idEreditatoStatoRichiestaOs =
+            this.richiesta.statoRichiestaOs.statoRichiestaOsId;
+        }
+
+        if (this.idEreditatoStatoRichiestaOs == null) {
+          this.statoRichiestaOs.forEach((elemento, indice) => {
+            this.statoRichiestaOs[indice].abilitato = indice === 0;
+          });
+        } else {
+          this.condizioneVisibleNullStatoRichiestaOs = false;
+          if (this.idEreditatoStatoRichiestaOs <= penultimo) {
+            this.statoRichiestaOs.forEach((elemento, indice) => {
+              this.statoRichiestaOs[indice].abilitato =
+                indice === this.idEreditatoStatoRichiestaOs - 1 ||
+                indice === this.idEreditatoStatoRichiestaOs;
+            });
+          }
+          if (this.idEreditatoStatoRichiestaOs == ultimo) {
+            this.statoRichiestaOs.forEach((elemento, indice) => {
+              this.statoRichiestaOs[indice].abilitato = indice === penultimo;
+            });
+          }
+        }
+      });
+
+      ///////////////////////////////////////////////////////////////////////////////////////////////
+
+      this.richiestaService.statoApprovazioneConsapPost().subscribe((data) => {
+        this.statoApprovazioneConsap = data.elenco;
+        const ultimo = this.statoApprovazioneConsap.length;
+        const penultimo = ultimo - 1;
+
+        if (this.richiesta.statoApprovazioneConsap == null) {
+          this.idEreditatoStatoApprovazioneConsapBox = null;
+        } else {
+          this.idEreditatoStatoApprovazioneConsapBox =
+            this.richiesta.statoApprovazioneConsap.statoApprovazioneConsapId;
+        }
+
+        if (this.idEreditatoStatoApprovazioneConsapBox == null) {
+          this.statoApprovazioneConsap.forEach((elemento, indice) => {
+            this.statoApprovazioneConsap[indice].abilitato = indice === 0;
+          });
+        } else {
+          this.condizioneVisibleNullStatoApprovazioneConsap = false;
+          if (this.idEreditatoStatoApprovazioneConsapBox <= penultimo) {
+            this.statoApprovazioneConsap.forEach((elemento, indice) => {
+              this.statoApprovazioneConsap[indice].abilitato =
+                indice === this.idEreditatoStatoApprovazioneConsapBox - 1 ||
+                indice === this.idEreditatoStatoApprovazioneConsapBox;
+            });
+          }
+          if (this.idEreditatoStatoApprovazioneConsapBox == ultimo) {
+            this.statoApprovazioneConsap.forEach((elemento, indice) => {
+              this.statoApprovazioneConsap[indice].abilitato =
+                indice === penultimo;
+            });
+          }
+        }
+      });
+
+      //////////////////////////////////////////////////////////////////////////////////////////////
+
+      this.richiestaService.statoApprovazioneOsPost().subscribe((data) => {
+        this.statoApprovazioneOs = data.elenco;
+        const ultimo = this.statoApprovazioneOs.length;
+        const penultimo = ultimo - 1;
+
+        if (this.richiesta.statoApprovazioneOs == null) {
+          this.idEreditatoStatoApprovazioneOsBox = null;
+        } else {
+          this.idEreditatoStatoApprovazioneOsBox =
+            this.richiesta.statoApprovazioneOs.statoApprovazioneOsId;
+        }
+
+        if (this.idEreditatoStatoApprovazioneOsBox == null) {
+          this.statoApprovazioneOs.forEach((elemento, indice) => {
+            this.statoApprovazioneOs[indice].abilitato = indice === 0;
+          });
+        } else {
+          this.condizioneVisibleNullStatoApprovazioneOs = false;
+          if (this.idEreditatoStatoApprovazioneOsBox <= penultimo) {
+            this.statoApprovazioneOs.forEach((elemento, indice) => {
+              this.statoApprovazioneOs[indice].abilitato =
+                indice === this.idEreditatoStatoApprovazioneOsBox - 1 ||
+                indice === this.idEreditatoStatoApprovazioneOsBox;
+            });
+          }
+          if (this.idEreditatoStatoApprovazioneOsBox == ultimo) {
+            this.statoApprovazioneOs.forEach((elemento, indice) => {
+              this.statoApprovazioneOs[indice].abilitato = indice === penultimo;
+            });
+          }
+        }
+      });
+
+      /////////////////////////////////////////////////////////////////////////////////////////
+
+      this.richiestaService.commessaOsPost().subscribe((data) => {
+        this.commessaOs = data.elenco;
+      });
     });
-
-   
-   
-
-    
-    
-    
-    
-
-    
-     
   }
 
-  editRichiesta(){
+  editRichiesta() {
     const numeroTicket = (<HTMLInputElement>(
       document.getElementById('numeroTicket')
     )).value;
@@ -297,12 +210,13 @@ export class ModificaComponent implements OnInit {
       .value;
     const oggettoParsed: string = String(oggetto);
 
-    const applicativoInput = document.getElementById('applicativo') as HTMLInputElement;
-const applicativoIdString = applicativoInput.getAttribute('applicativoId');
-const applicativoId = applicativoIdString ? parseInt(applicativoIdString) : null;
-
-
-
+    const applicativoInput = document.getElementById(
+      'applicativo'
+    ) as HTMLInputElement;
+    const applicativoIdString = applicativoInput.getAttribute('applicativoId');
+    const applicativoId = applicativoIdString
+      ? parseInt(applicativoIdString)
+      : null;
 
     const dataCreazione = (<HTMLInputElement>(
       document.getElementById('dataCreazione')
@@ -352,7 +266,7 @@ const applicativoId = applicativoIdString ? parseInt(applicativoIdString) : null
 
     const dati = {
       erroreDTO: null,
-      filtri: {id : this.idRichiesta},
+      filtri: { id: this.idRichiesta },
       elenco: [
         {
           id: null,
@@ -383,7 +297,6 @@ const applicativoId = applicativoIdString ? parseInt(applicativoIdString) : null
       ],
     };
 
-    // console.log('DATI DA MODIFICARE:', dati);
     this.richiestaService.modificaRichiesta(dati).subscribe(
       (data) => {
         console.log('RICHIESTA MODIFICATA:', data);
@@ -398,16 +311,13 @@ const applicativoId = applicativoIdString ? parseInt(applicativoIdString) : null
   }
 
   openModifica() {
-    
-      const modal = document.getElementById('modalOpenModifica');
-      if (modal) {
-        modal.classList.add('show');
-        modal.style.display = 'block';
-      }
-    
+    const modal = document.getElementById('modalOpenModifica');
+    if (modal) {
+      modal.classList.add('show');
+      modal.style.display = 'block';
+    }
   }
 
-  // Metodo per chiudere il modal
   closeModifica() {
     const modal = document.getElementById('modalOpenModifica');
     if (modal) {
@@ -424,12 +334,25 @@ const applicativoId = applicativoIdString ? parseInt(applicativoIdString) : null
     }
   }
 
-  // Metodo per chiudere il modal
   closeConferma() {
     const modal = document.getElementById('modalConfermaModifica');
     if (modal) {
       modal.classList.remove('show');
       modal.style.display = 'none';
+    }
+  }
+
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Tab') {
+      const inputs = this.elRef.nativeElement.querySelectorAll('input');
+      const lastInput = inputs[inputs.length - 1];
+      if (document.activeElement === lastInput) {
+        event.preventDefault();
+        const firstInput = inputs[0];
+        if (firstInput) {
+          firstInput.focus();
+        }
+      }
     }
   }
 }

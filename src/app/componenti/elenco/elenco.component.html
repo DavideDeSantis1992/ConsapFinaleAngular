@@ -17,7 +17,7 @@
         
         <button class="btn btn-primary" type="button" (click)="openModal()">Filtri ></button>
         
-        <div class="modal fade" id="modalright" tabindex="-1" role="dialog" aria-labelledby="modalrightTitle" aria-hidden="true">
+        <div class="modal fade" id="modalright" role="dialog" aria-labelledby="modalrightTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-right" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -32,7 +32,7 @@
                   <div class="row">
                     <div class="col-12">
                       <label class="scrittaVerde" for="numeroTicketFiltro">Numero Ticket</label>
-                      <input type="text" class="form-control" id="numeroTicketFiltro" placeholder="Inserisci numero ticket" maxlength="5" 
+                      <input type="text" class="form-control" id="numeroTicketFiltro" placeholder="Inserisci numero ticket" maxlength="5" autocomplete="off" autocomplete="off" tabindex="1"         
                              oninput="if (!this.value.trim()) { this.value = null; } else { this.value = this.value.replace(/[^0-9]/g, ''); }">
                   </div>
                   
@@ -42,14 +42,14 @@
                   <div class="row">
                     <div class="col-6">
                       <label class="scrittaVerde" for="oggettoFiltro">Oggetto</label>
-                      <input type="text" class="form-control" id="oggettoFiltro" placeholder="Inserisci oggetto" 
-                             oninput="if (!this.value.trim()) { this.value = null; }">
+                      <input type="text" class="form-control" id="oggettoFiltro" placeholder="Inserisci oggetto" autocomplete="off" tabindex="1"
+                             oninput="if (!this.value.trim()) { this.value = null; }"> 
                   </div>
                   
 
                     <div class="col-6">
                       <label class="scrittaVerde" for="applicativoFiltro">Applicativo</label>
-                      <select id="applicativoFiltro" class="form-control custom-select">
+                      <select id="applicativoFiltro" class="form-control custom-select" tabindex="1" > 
                         
                         <option value="null">Tutti</option>
                     <ng-container *ngFor="let app of applicativo">
@@ -65,7 +65,7 @@
                   <div class="row">
                     <div class="col-6">
                       <label class="scrittaVerde" for="statoRichiestaConsapFiltro">Stato Richiesta CONSAP</label>
-                      <select id="statoRichiestaConsapFiltro" class="form-control custom-select"
+                      <select id="statoRichiestaConsapFiltro" class="form-control custom-select" tabindex="1"
                       >
                         
                         <option value="null">Tutti</option>
@@ -79,7 +79,7 @@
 
                     <div class="col-6">
                       <label class="scrittaVerde" for="statoRichiestaOsFiltro">Stato Richiesta OS</label>
-                      <select id="statoRichiestaOsFiltro" class="form-control custom-select"
+                      <select id="statoRichiestaOsFiltro" class="form-control custom-select" tabindex="1"
                       >
                         
                         <option value="null">Tutti</option>
@@ -97,7 +97,7 @@
 
                     <div class="col-6">
                       <label class="scrittaVerde" for="statoApprovazioneConsapFiltro">Stato Approvazione CONSAP</label>
-                      <select id="statoApprovazioneConsapFiltro" class="form-control custom-select"
+                      <select id="statoApprovazioneConsapFiltro" class="form-control custom-select" tabindex="1"
                       >
                         
                         <option value="null">Tutti</option>
@@ -111,7 +111,7 @@
 
                     <div class="col-6">
                       <label class="scrittaVerde" for="statoApprovazioneOsFiltro">Stato Approvazione OS</label>
-                      <select id="statoApprovazioneOsFiltro" class="form-control custom-select"
+                      <select id="statoApprovazioneOsFiltro" class="form-control custom-select" tabindex="1" 
                       >
                         
                         <option value="null">Tutti</option>
@@ -194,7 +194,7 @@
         <li class="page-item"><span class="page-link testoNero" [style]="{color: 'black'}">Vai a pagina:</span></li>
         <!-- aggiungi una label di input per vai a pagina: -->
         <li>
-        <input type="text" class="page-link testoNero vai" id="numeroPaginaInput" name="numeroPagina" min="1" max="{{pagineTotali}}" value="{{currentPage}}">
+        <input type="text" class="page-link testoNero vai" id="numeroPaginaInput" name="numeroPagina" min="1" max="{{pagineTotali}}" value="{{currentPage}}" autocomplete="off">
       </li>
       <br>
       <li><div class="btn-container ">
@@ -215,21 +215,8 @@
           </a>
       </li>
       
-        <!-- Pagina Iniziale -->
-        <!-- <li class="page-item"><a class="page-link testoNero cursore" value="1" (click)="prendiNumeroPagina($event)" >1</a></li> -->
-        
-        
-        <!-- prendi pagina successiva -->
-
         <li class="page-item"><a class="page-link testoNero cursore" [style]="{color: 'black'}" (click)="prendiNumeroPagina($event)">{{currentPage}}</a></li>
         
-        <!-- ultima pagina -->
-        <!-- <li class="page-item">
-          <a class="page-link testoNero cursore" [attr.value]="pagineTotali" (click)="prendiNumeroPagina($event)">
-              {{pagineTotali}}
-          </a>
-        </li> -->
-      
         <li class="page-item">
           <a class="page-link" (click)="paginaSuccessiva()">
             <span class="visually-hidden" >Pagina successiva</span>
@@ -262,13 +249,8 @@
     <br>
     <div class="btn-container ">
       <div class="btn-example">
-        <button type="button" class="btn btn-secondary">Stampa</button>
-      </div>
-
-      
-
-
-
+        <button type="button" class="btn btn-secondary" >Stampa</button>
+      </div>   
     </div>
   </div>
   
