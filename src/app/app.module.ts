@@ -19,12 +19,13 @@ import { HomeaccessoComponent } from './componenti/homeaccesso/homeaccesso.compo
 import { HeaderaccessoComponent } from './componenti/headeraccesso/headeraccesso.component';
 import { ElencoComponent } from './componenti/elenco/elenco.component';
 import { InserimentoComponent } from './componenti/inserimento/inserimento.component';
-import { BreadcrumbsinserimentoComponent } from './componenti/inserimento/breadcrumbsinserimento/breadcrumbsinserimento.component';
-import { BreadcrumbselencoComponent } from './componenti/elenco/breadcrumbselenco/breadcrumbselenco.component';
+
+
 import { IspezionaComponent } from './componenti/ispeziona/ispeziona.component';
-import { BreadcrumbsispezionaComponent } from './componenti/ispeziona/breadcrumbsispeziona/breadcrumbsispeziona.component';
+
 import { ModificaComponent } from './componenti/modifica/modifica.component';
-import { BreadcrumbsmodificaComponent } from './componenti/modifica/breadcrumbsmodifica/breadcrumbsmodifica.component';
+
+import { PercorsoComponent } from './componenti/percorso/percorso.component';
 
 
 
@@ -40,19 +41,20 @@ import { BreadcrumbsmodificaComponent } from './componenti/modifica/breadcrumbsm
     HeaderaccessoComponent,
     ElencoComponent,
     InserimentoComponent,
-    BreadcrumbsinserimentoComponent,
-    BreadcrumbselencoComponent,
+  
     IspezionaComponent,
-    BreadcrumbsispezionaComponent,
+   
     ModificaComponent,
-    BreadcrumbsmodificaComponent
+    
+
+    PercorsoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     FormsModule,
-   NgbDropdownModule,
+    NgbDropdownModule,
     HttpClientModule,
     RouterModule
   ],

@@ -1,6 +1,5 @@
 <app-headeraccesso></app-headeraccesso>
-
-<app-breadcrumbsinserimento></app-breadcrumbsinserimento>
+<app-percorso [breadcrumbNames]="['Home', 'Elenco', 'Inserimento']"></app-percorso>
 <section class="it-hero-wrapper it-dark it-overlay contenitore-tabella">
     <!-- Immagine sfondo-->
     <div class="img-responsive-wrapper">
@@ -92,7 +91,7 @@
             </div>
             <div class="col-md-3">
                 <label for="dataStimaFinale">Data Stima Fine</label>
-                <input type="date" class="form-control" id="dataStimaFinale " autocomplete="off"
+                <input type="date" class="form-control" id="dataStimaFinale " tabindex="1" autocomplete="off"
                 [min]="dataCreazione"
                 
                 >

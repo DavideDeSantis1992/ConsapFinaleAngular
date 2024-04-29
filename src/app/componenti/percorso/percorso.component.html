@@ -1,0 +1,21 @@
+<nav class="breadcrumb-container sfondo" aria-label="Percorso di navigazione">
+    <ol class="breadcrumb text-white ">
+        <ng-container *ngFor="let name of breadcrumbNames; let last = last">
+            <li class="breadcrumb-item text-white  " *ngIf="!last">
+                <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
+                    <use href="#it-link" fill="white"></use>
+                </svg>
+                <a class="text-white" *ngIf="name !== breadcrumbNames[breadcrumbNames.length - 1]" [routerLink]="getLinkForBreadcrumb(name)">{{ name }}</a>
+                <span *ngIf="name === breadcrumbNames[breadcrumbNames.length - 1]">{{ name }}</span>
+                <span class="separator" *ngIf="!last">/</span>
+                
+            </li>
+            <li class="breadcrumb-item active text-white " *ngIf="last" aria-current="page">
+                <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
+                <use href="#it-link" fill="white"></use>
+            </svg>
+            {{ name }}
+                </li>
+        </ng-container>
+    </ol>
+</nav>

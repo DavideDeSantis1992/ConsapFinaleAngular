@@ -151,62 +151,62 @@ export class InserimentoComponent implements OnInit {
   creaRichiesta() {
     const numeroTicket = (<HTMLInputElement>(
       document.getElementById('numeroTicket')
-    )).value;
+    ))?.value;
     const numeroTicketParsed = parseInt(numeroTicket);
 
     const oggetto = (<HTMLInputElement>document.getElementById('oggetto'))
-      .value;
+      ?.value;
     const oggettoParsed: string = String(oggetto);
 
     const applicativo = (<HTMLSelectElement>(
       document.getElementById('applicativo')
-    )).value;
+    ))?.value;
     const applicativoParsed = applicativo === '' ? null : parseInt(applicativo);
 
     const dataCreazione = (<HTMLInputElement>(
       document.getElementById('dataCreazione')
-    )).value;
+    ))?.value;
     const dataCreazioneParsed: string = String(dataCreazione);
 
     const statoRichiestaConsap = (<HTMLSelectElement>(
       document.getElementById('statoRichiestaConsap')
-    )).value;
+    ))?.value;
     const statoRichiestaConsapParsed =
       statoRichiestaConsap === '' ? null : parseInt(statoRichiestaConsap);
 
     const importo = (<HTMLInputElement>document.getElementById('importo'))
-      .value;
+      ?.value;
     const importoParsed = importo === '' ? null : importo;
 
     const statoApprovazioneConsap = (<HTMLSelectElement>(
       document.getElementById('statoApprovazioneConsap')
-    )).value;
+    ))?.value;
 
     const statoApprovazioneConsapParsed =
       statoApprovazioneConsap === '' ? null : parseInt(statoApprovazioneConsap);
 
     const statoApprovazioneOs = (<HTMLSelectElement>(
       document.getElementById('statoApprovazioneOs')
-    )).value;
+    ))?.value;
     const statoApprovazioneOsParsed =
       statoApprovazioneOs === '' ? null : parseInt(statoApprovazioneOs);
 
     const statoRichiestaOs = (<HTMLSelectElement>(
       document.getElementById('statoRichiestaOs')
-    )).value;
+    ))?.value;
     const statoRichiestaOsParsed =
       statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs);
 
     const dataStimaFinale = (<HTMLInputElement>(
       document.getElementById('dataStimaFinale')
-    )).value;
+    ))?.value;
 
     const dataStimaFinaleParsed =
       dataStimaFinale === '' ? null : String(dataStimaFinale);
 
     const commessaOs = (<HTMLSelectElement>(
       document.getElementById('commessaOs')
-    )).value;
+    ))?.value;
     const commessaOsParsed = commessaOs === '' ? null : parseInt(commessaOs);
 
     const dati = {

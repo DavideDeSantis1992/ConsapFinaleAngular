@@ -1,6 +1,6 @@
 <app-headeraccesso></app-headeraccesso>
 
-<app-breadcrumbsmodifica></app-breadcrumbsmodifica>
+<app-percorso [breadcrumbNames]="['Home', 'Elenco', 'Modifica']"></app-percorso>
 <section class="it-hero-wrapper it-dark it-overlay contenitore-tabella">
     <!-- Immagine sfondo-->
     <div class="img-responsive-wrapper">
@@ -18,18 +18,18 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="numeroTicket">Numero Ticket</label>
-                <input type="text" class="form-control" id="numeroTicket" [value]="richiesta?.numeroTicket" readonly autocomplete="off" tabindex="1">
+                <input type="text" class="form-control" id="numeroTicket" [value]="richiesta?.numeroTicket" readonly autocomplete="off" >
             </div>
             
             <div class="col-md-6">
                 <label for="oggetto">Oggetto</label> 
-                <input type="text" class="form-control" id="oggetto" autocomplete="off" tabindex="1"
+                <input type="text" class="form-control" id="oggetto" autocomplete="off" 
                 [value]="richiesta?.oggetto"
                 readonly>
             </div>
             <div class="col-md-3" *ngIf="richiesta && richiesta.applicativo">
                 <label for="applicativo">Applicativo</label>
-                <input type="text" class="form-control" id="applicativo" autocomplete="off" tabindex="1"
+                <input type="text" class="form-control" id="applicativo" autocomplete="off" 
                        [value]="richiesta.applicativo.descApplicativo || '-'"
                        
                        [readonly]="true"
@@ -105,7 +105,7 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="dataCreazione">Data Creazione</label>
-                <input type="date" class="form-control" id="dataCreazione" autocomplete="off" tabindex="1"
+                <input type="date" class="form-control" id="dataCreazione" autocomplete="off" 
                 [value]="richiesta?.dataCreazione"
                 readonly>
             </div>
