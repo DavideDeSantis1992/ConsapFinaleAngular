@@ -105,13 +105,13 @@
         <div class="row">
             <div class="col-md-3">
                 <label for="dataCreazione">Data Creazione</label>
-                <input type="date" class="form-control" id="dataCreazione"autocomplete="off"
+                <input type="date" class="form-control" id="dataCreazione"autocomplete="off" 
                 [value]="richiesta?.dataCreazione"
                 readonly>
             </div>
             <div class="col-md-3">
                 <label for="dataStimaFinale">Data Stima Fine</label>
-                <input type="date" class="form-control" id="dataStimaFinale" autocomplete="off" tabindex="1" [min]="dataCreazione" (keydown)="disableKeyboardInput($event)"
+                <input type="date" class="form-control" id="dataStimaFinale" autocomplete="off" [min]="dataCreazione" tabindex="1" (keydown)="disableKeyboardInput($event)" 
                 [value]="richiesta?.dataStimaFinale ? richiesta.dataStimaFinale : '-'"
                 >
             </div>
@@ -130,7 +130,7 @@
             
             <div class="col-md-3">
                 <label for="importo">Importo</label>
-                <input type="text" class="form-control" id="importo" autocomplete="off" (keydown)="handleKeyDown($event)" tabindex="1"
+                <input type="text" class="form-control" id="importo" autocomplete="off" tabindex="1" (keydown)="handleTabKey($event)" 
                 [value]="richiesta?.importo"
                 >
             </div>
