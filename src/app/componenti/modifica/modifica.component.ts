@@ -50,6 +50,10 @@ export class ModificaComponent implements OnInit {
     this.dataCreazione = dataCreazioneElement.value;
   }
 
+  disableKeyboardInput(event: KeyboardEvent): void {
+    event.preventDefault();
+  }
+
   prendiRichiestaConCombo() {
     const idParsato = parseInt(this.idRichiesta);
 
