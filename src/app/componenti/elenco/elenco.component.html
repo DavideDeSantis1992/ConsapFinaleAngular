@@ -243,16 +243,16 @@
 
       <div class="dropdown">
         <button class="btn btn-dropdown dropdown-toggle testoNero" type="button"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Salta alla pagina" (click)="apriChiudiDropdownSize()" [style]="{color: 'black'}">
-          {{paginaSelezionata}}
+          Elementi per pagina: {{paginaSelezionata}}
           <svg class="icon icon-primary icon-sm"><use href="#it-expand"></use></svg>
         </button>
         <div class="dropdown-menu" aria-labelledby="pagerChangerSize" id="pagerChangerSize">
           <div class="link-list-wrapper">
             <ul class="link-list testoNero">
-              <li><a class="list-item active cursore" aria-current="page" value="1" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>1/pagina</span></a></li>
-              <li><a class="list-item active cursore" aria-current="page" value="2" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>2/pagina</span></a></li>
-              <li><a class="list-item active cursore" aria-current="page" value="5" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>5/pagina</span></a></li>
-              <li><a class="list-item active cursore" aria-current="page" value="10" (click)="prendiValorePagina($event);apriChiudiDropdown()"><span>10/pagina</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="1" (click)="prendiValorePagina($event);apriChiudiDropdownSize()"><span>1</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="2" (click)="prendiValorePagina($event);apriChiudiDropdownSize()"><span>2</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="5" (click)="prendiValorePagina($event);apriChiudiDropdownSize()"><span>5</span></a></li>
+              <li><a class="list-item active cursore" aria-current="page" value="10" (click)="prendiValorePagina($event);apriChiudiDropdownSize()"><span>10</span></a></li>
 
               
             </ul>

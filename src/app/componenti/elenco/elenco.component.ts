@@ -30,7 +30,7 @@ export class ElencoComponent implements OnInit {
   statoApprovazioneConsap!: StatoApprovazioneConsap[];
   statoApprovazioneOs!: StatoApprovazioneOs[];
   flagDropdown: boolean = false;
-  paginaSelezionata: string = '5/pagina';
+  paginaSelezionata: string = '5';
   currentPage: any = 1; // fisso a 1
   pageSize: any = 5;
   pagineTotali: any = 0;
