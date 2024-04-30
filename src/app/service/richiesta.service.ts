@@ -1,7 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { richiestaAttualeArr } from './richiesta';
+import { response } from 'express';
+import { error } from 'console';
 import { TokenService } from './token.service';
+
 
 @Injectable({
   providedIn: 'root',
@@ -214,32 +218,28 @@ export class RichiestaService {
     return this.http.post<any>(this.urlModifica, dati, { headers }); // Restituisci l'observable
   }
 
-  elencoAttributiOrdinati(
-    campo1: string,
-    ordinamento1: string,
-    righe: any
-  ): Observable<any> {
-    // Cambiato il tipo di ritorno in Observable<any>
+  
 
-    const url =
-      this.urlBase + `-${righe}?campo=${campo1}&ordinamento=${ordinamento1}`;
-
-
+  elencoAttributiOrdinati(campo1:string,ordinamento1:string,righe:any,numeroTicketFiltro:any,oggettoFiltro:any, applicativoFiltro:any, statoRichiestaConsapFiltro:any, statoApprovazioneConsapFiltro:any, statoApprovazioneOsFiltro:any, statoRichiestaOsFiltro:any): Observable<any> { // Cambiato il tipo di ritorno in Observable<any>
+    
+    const url = this.urlBase + `-${righe}?campo=${campo1}&ordinamento=${ordinamento1}`;
+    
+   
     const body = {
       erroreDTO: null,
       filtri: {
-        id: null,
-        numeroTicket: null,
-        applicativoId: null,
-        oggetto: null,
-        statoRichiestaConsapId: null,
-        dataCreazione: null,
-        statoApprovazioneConsapId: null,
-        statoApprovazioneOsId: null,
-        statoRichiestaOsId: null,
-        dataStimaFinale: null,
-        importo: null,
-        commessaOsId: null,
+        "id": null,
+        "numeroTicket": numeroTicketFiltro,
+        "applicativo": {"applicativoId":applicativoFiltro},
+        "oggetto": oggettoFiltro,
+        "statoRichiestaConsap": {"statoRichiestaConsap":statoRichiestaConsapFiltro},
+        "dataCreazione": null,
+        "statoApprovazioneConsap": {"statoApprovazioneConsapId":statoApprovazioneConsapFiltro},
+        "statoApprovazioneOs": {"statoApprovazioneOsId":statoApprovazioneOsFiltro},
+        "statoRichiestaOs": {"statoRichiestaOsId":statoRichiestaOsFiltro},
+        "dataStimaFinale": null,
+        "importo": null,
+        "commessaOsId": null
       },
       elenco: null,
     };

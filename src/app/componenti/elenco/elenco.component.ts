@@ -41,6 +41,14 @@ export class ElencoComponent implements OnInit {
   private urlMod = '';
   private urlX = `http://localhost:8080/richiesta/`;
 
+  numeroTicketFiltro:any=null;
+  oggettoFiltro:any=null;
+  applicativoFiltro:any=null;
+  statoRichiestaConsapFiltro:any=null;
+  statoApprovazioneConsapFiltro:any=null;
+  statoApprovazioneOsFiltro:any=null; 
+  statoRichiestaOsFiltro:any=null;
+
   // TODO: SISTEMARE TABULAZIONE, MOMENTANEAMENTE DISATTIVATA PER QUESTO COMPONENTE
   @HostListener('keydown.Tab', ['$event'])
   handleTab(event: KeyboardEvent) {
@@ -81,6 +89,24 @@ export class ElencoComponent implements OnInit {
       }
     } else {
       const dropdown = document.getElementById('pagerChanger');
+      if (dropdown) {
+        dropdown.classList.remove('show');
+        this.flagDropdown = false;
+      }
+    }
+  }
+
+  apriChiudiDropdownSize() {
+    console.log('apriChiudiDropdownSize');
+
+    if (this.flagDropdown === false) {
+      const dropdown = document.getElementById('pagerChangerSize');
+      if (dropdown) {
+        dropdown.classList.add('show');
+        this.flagDropdown = true;
+      }
+    } else {
+      const dropdown = document.getElementById('pagerChangerSize');
       if (dropdown) {
         dropdown.classList.remove('show');
         this.flagDropdown = false;
@@ -148,6 +174,14 @@ export class ElencoComponent implements OnInit {
     const statoRichiestaOsParsed =
       statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs) || null;
 
+      this.numeroTicketFiltro=numeroTicketParsed,
+      this.oggettoFiltro=oggettoParsed,
+      this.applicativoFiltro=applicativoParsed,
+      this.statoRichiestaConsapFiltro=statoRichiestaConsapParsed,
+      this.statoApprovazioneConsapFiltro=statoApprovazioneConsapParsed,
+      this.statoApprovazioneOsFiltro=statoApprovazioneOsParsed,
+      this.statoRichiestaOsFiltro=statoRichiestaOsParsed
+
       let accessToken = '';
       if(typeof sessionStorage !== 'undefined'){
         const encToken = sessionStorage.getItem('encrypted_Token');
@@ -156,7 +190,6 @@ export class ElencoComponent implements OnInit {
           console.log("Token non trovato!!!")
         }
       }
-
 
     if (this.numeroCaso == 0) {
       this.urlMod =
@@ -262,6 +295,14 @@ export class ElencoComponent implements OnInit {
     const statoRichiestaOsParsed =
       statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs) || null;
 
+      this.numeroTicketFiltro=numeroTicketParsed,
+      this.oggettoFiltro=oggettoParsed,
+      this.applicativoFiltro=applicativoParsed,
+      this.statoRichiestaConsapFiltro=statoRichiestaConsapParsed,
+      this.statoApprovazioneConsapFiltro=statoApprovazioneConsapParsed,
+      this.statoApprovazioneOsFiltro=statoApprovazioneOsParsed,
+      this.statoRichiestaOsFiltro=statoRichiestaOsParsed
+      
     if (this.numeroCaso == 0) {
       this.urlMod =
         this.urlX +
@@ -346,7 +387,7 @@ export class ElencoComponent implements OnInit {
       this.numeroCaso = 1;
       this.currentPage = 1;
       this.richiestaService
-        .elencoAttributiOrdinati('numeroTicket', 'asc', this.pageSize)
+        .elencoAttributiOrdinati('numeroTicket', 'asc', this.pageSize,this.numeroTicketFiltro,this.oggettoFiltro,this.applicativoFiltro,this.statoRichiestaConsapFiltro,this.statoApprovazioneConsapFiltro,this.statoApprovazioneOsFiltro,this.statoRichiestaOsFiltro)
         .subscribe((data) => {
           this.richieste = data.elenco.content;
           this.pagineTotali = data.elenco.totalPages;
@@ -356,7 +397,7 @@ export class ElencoComponent implements OnInit {
       this.numeroCaso = 2;
       this.currentPage = 1;
       this.richiestaService
-        .elencoAttributiOrdinati('numeroTicket', 'desc', this.pageSize)
+        .elencoAttributiOrdinati('numeroTicket', 'desc', this.pageSize,this.numeroTicketFiltro,this.oggettoFiltro,this.applicativoFiltro,this.statoRichiestaConsapFiltro,this.statoApprovazioneConsapFiltro,this.statoApprovazioneOsFiltro,this.statoRichiestaOsFiltro)
         .subscribe((data) => {
           this.richieste = data.elenco.content;
           this.pagineTotali = data.elenco.totalPages;
@@ -372,7 +413,7 @@ export class ElencoComponent implements OnInit {
       this.numeroCaso = 3;
       this.currentPage = 1;
       this.richiestaService
-        .elencoAttributiOrdinati('dataCreazione', 'asc', this.pageSize)
+        .elencoAttributiOrdinati('dataCreazione', 'asc', this.pageSize,this.numeroTicketFiltro,this.oggettoFiltro,this.applicativoFiltro,this.statoRichiestaConsapFiltro,this.statoApprovazioneConsapFiltro,this.statoApprovazioneOsFiltro,this.statoRichiestaOsFiltro)
         .subscribe((data) => {
           this.richieste = data.elenco.content;
           this.pagineTotali = data.elenco.totalPages;
@@ -382,7 +423,7 @@ export class ElencoComponent implements OnInit {
       this.numeroCaso = 4;
       this.currentPage = 1;
       this.richiestaService
-        .elencoAttributiOrdinati('dataCreazione', 'desc', this.pageSize)
+        .elencoAttributiOrdinati('dataCreazione', 'desc', this.pageSize,this.numeroTicketFiltro,this.oggettoFiltro,this.applicativoFiltro,this.statoRichiestaConsapFiltro,this.statoApprovazioneConsapFiltro,this.statoApprovazioneOsFiltro,this.statoRichiestaOsFiltro)
         .subscribe((data) => {
           this.richieste = data.elenco.content;
           this.pagineTotali = data.elenco.totalPages;
@@ -489,6 +530,15 @@ export class ElencoComponent implements OnInit {
     const statoRichiestaOsParsed =
       statoRichiestaOs === '' ? null : parseInt(statoRichiestaOs) || null;
 
+      this.numeroTicketFiltro=numeroTicketParsed,
+      this.oggettoFiltro=oggettoParsed,
+      this.applicativoFiltro=applicativoParsed,
+      this.statoRichiestaConsapFiltro=statoRichiestaConsapParsed,
+      this.statoApprovazioneConsapFiltro=statoApprovazioneConsapParsed,
+      this.statoApprovazioneOsFiltro=statoApprovazioneOsParsed,
+      this.statoRichiestaOsFiltro=statoRichiestaOsParsed
+
+
     const dati = {
       erroreDTO: null,
       filtri: {
@@ -585,6 +635,14 @@ export class ElencoComponent implements OnInit {
     );
     statoApprovazioneOsSelect.value = 'null';
 
+    this.numeroTicketFiltro=null,
+      this.oggettoFiltro=null,
+      this.applicativoFiltro=null,
+      this.statoRichiestaConsapFiltro=null,
+      this.statoApprovazioneConsapFiltro=null,
+      this.statoApprovazioneOsFiltro=null,
+      this.statoRichiestaOsFiltro=null
+
     if (this.numeroCaso == 0) {
       this.getElenco();
     } else if (this.numeroCaso == 1) {
@@ -592,7 +650,7 @@ export class ElencoComponent implements OnInit {
 
       this.currentPage = 1;
       this.richiestaService
-        .elencoAttributiOrdinati('numeroTicket', 'asc', this.pageSize)
+        .elencoAttributiOrdinati('numeroTicket', 'asc', this.pageSize,this.numeroTicketFiltro,this.oggettoFiltro,this.applicativoFiltro,this.statoRichiestaConsapFiltro,this.statoApprovazioneConsapFiltro,this.statoApprovazioneOsFiltro,this.statoRichiestaOsFiltro)
         .subscribe((data) => {
           this.richieste = data.elenco.content;
           this.pagineTotali = data.elenco.totalPages;
@@ -601,7 +659,7 @@ export class ElencoComponent implements OnInit {
       this.ordinamentoNumeroTicket = 'desc';
       this.currentPage = 1;
       this.richiestaService
-        .elencoAttributiOrdinati('numeroTicket', 'desc', this.pageSize)
+        .elencoAttributiOrdinati('numeroTicket', 'desc', this.pageSize,this.numeroTicketFiltro,this.oggettoFiltro,this.applicativoFiltro,this.statoRichiestaConsapFiltro,this.statoApprovazioneConsapFiltro,this.statoApprovazioneOsFiltro,this.statoRichiestaOsFiltro)
         .subscribe((data) => {
           this.richieste = data.elenco.content;
           this.pagineTotali = data.elenco.totalPages;
@@ -611,7 +669,7 @@ export class ElencoComponent implements OnInit {
 
       this.currentPage = 1;
       this.richiestaService
-        .elencoAttributiOrdinati('dataCreazione', 'asc', this.pageSize)
+        .elencoAttributiOrdinati('dataCreazione', 'asc', this.pageSize,this.numeroTicketFiltro,this.oggettoFiltro,this.applicativoFiltro,this.statoRichiestaConsapFiltro,this.statoApprovazioneConsapFiltro,this.statoApprovazioneOsFiltro,this.statoRichiestaOsFiltro)
         .subscribe((data) => {
           this.richieste = data.elenco.content;
           this.pagineTotali = data.elenco.totalPages;
@@ -620,7 +678,7 @@ export class ElencoComponent implements OnInit {
       this.ordinamentoNumeroTicket = 'desc';
       this.currentPage = 1;
       this.richiestaService
-        .elencoAttributiOrdinati('dataCreazione', 'desc', this.pageSize)
+        .elencoAttributiOrdinati('dataCreazione', 'desc', this.pageSize,this.numeroTicketFiltro,this.oggettoFiltro,this.applicativoFiltro,this.statoRichiestaConsapFiltro,this.statoApprovazioneConsapFiltro,this.statoApprovazioneOsFiltro,this.statoRichiestaOsFiltro)
         .subscribe((data) => {
           this.richieste = data.elenco.content;
           this.pagineTotali = data.elenco.totalPages;
