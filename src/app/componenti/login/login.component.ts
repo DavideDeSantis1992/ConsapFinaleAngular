@@ -40,6 +40,9 @@ export class LoginComponent {
           this.token.setToken(token);
           const encryptedToken = this.token.encryptToken(this.token.getToken());
           this.authService.setAuthenticated(encryptedToken);
+          sessionStorage.setItem('userName', this.username);
+          console.log('Utente attualmente connesso:', this.username);
+          
           this.router.navigate(['/homeaccesso']);
         } else {
           console.error(
