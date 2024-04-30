@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './componenti/login/login.component';
-// import { AppComponent } from './app.component';
 import { HomeComponent } from './componenti/home/home.component';
 import { HomeaccessoComponent } from './componenti/homeaccesso/homeaccesso.component';
 import { ElencoComponent } from './componenti/elenco/elenco.component';

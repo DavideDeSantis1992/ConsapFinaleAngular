@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { TokenService } from '../service/token.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private token: TokenService) {}
+  constructor(private token: TokenService, private router:Router) {}
 
   isAuthenticated(): boolean {
     if (typeof sessionStorage !== 'undefined') {

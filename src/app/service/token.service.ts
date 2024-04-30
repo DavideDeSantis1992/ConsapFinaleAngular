@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
-import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,40 +21,6 @@ export class TokenService {
       }
     }
   }
-
-  startTokenExpirationTimer(): void {
-    this.stopTokenExpirationTimer();
-    const tokenRemovalTimeout = 30 * 1000;
-
-    const alertTimeout = 10 * 1000;
-
-    setTimeout(() => {
-      alert(
-        'Il token sta per scadere fra 30 secondi. Verrai re-indirizzato alla home'
-      );
-    }, alertTimeout);
-
-    this.tokenExpirationTimer = setTimeout(() => {
-      if(typeof sessionStorage !== 'undefined'){
-        const tkn = sessionStorage.getItem('encrypted_Token');
-        console.log('tkn',tkn)
-        if(tkn){
-          sessionStorage.removeItem('secret_Key');
-          sessionStorage.removeItem('encrypted_Token');
-          this.router.navigate(['/login']);
-        }
-      }
-    }, tokenRemovalTimeout);
-  }
-
-
-  stopTokenExpirationTimer(): void {
-    if (this.tokenExpirationTimer) {
-      clearTimeout(this.tokenExpirationTimer);
-    }
-  }
-
-
 
   private generateSecretKey(length: number): string {
     const characters =

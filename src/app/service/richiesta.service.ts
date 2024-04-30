@@ -1,9 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, retry, tap } from 'rxjs';
-import { richiestaAttualeArr } from './richiesta';
-import { response } from 'express';
-import { error } from 'console';
+import { Observable, tap } from 'rxjs';
 import { TokenService } from './token.service';
 
 @Injectable({
@@ -73,7 +70,6 @@ export class RichiestaService {
       .post<any>(this.urlLogin, data, { observe: 'response' })
       .pipe(
         tap((response) => {
-          this.token.startTokenExpirationTimer();
         })
       );
   }
