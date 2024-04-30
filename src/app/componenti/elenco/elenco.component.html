@@ -158,7 +158,7 @@
               <use [attr.xlink:href]="ordinamentoDataCreazione === 'asc' ? '#it-expand' : null" ></use>
           </svg>
         </th>
-          <th scope="col">Gestione Richiesta</th>
+          <th scope="col" *ngIf="showGestioneArgomento">Gestione Richiesta</th>
         </tr>
       </thead>
       <tbody>
@@ -167,7 +167,7 @@
           <td>{{ric.oggetto}}</td>
           <td>{{ric.applicativo.descApplicativo}}</td>
           <td>{{ric.dataCreazione | date:'dd-MM-yyyy'}}</td>
-          <td>
+          <td *ngIf="showGestioneIcona">
             <a href="/ispeziona" style="margin-right: 25px;" (click)="prendiId(ric)">
               <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
                 <use href="#it-zoom-in" fill="black"></use>
@@ -263,10 +263,20 @@
     
     <br>
     <div class="btn-container ">
+      <div class="row">
+        <div class="col-2">
       <div class="btn-example">
-        <button type="button" class="btn btn-secondary" (click)="generaPDF()">Stampa</button>
+        <button type="button" class="btn btn-secondary" (click)="generaPDF()">Stampa PDF</button>
+      </div>
       </div>
 
+      <div class="col-2">
+      <div class="btn-example">
+        <button type="button" class="btn btn-primary" >Stampa CSV</button>
+      </div>
+    </div>
+    </div>
+      
       
 
 

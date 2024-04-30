@@ -56,6 +56,9 @@ export class ElencoComponent implements OnInit {
   statoApprovazioneOsFiltro:any=null; 
   statoRichiestaOsFiltro:any=null;
 
+  showGestioneArgomento:boolean=true;
+  showGestioneIcona:boolean=true;
+
   // TODO: SISTEMARE TABULAZIONE, MOMENTANEAMENTE DISATTIVATA PER QUESTO COMPONENTE
   @HostListener('keydown.Tab', ['$event'])
   handleTab(event: KeyboardEvent) {
@@ -782,6 +785,8 @@ export class ElencoComponent implements OnInit {
 // }
 
 generaPDF(){
+  // this.showGestioneArgomento = false;
+  // this.showGestioneIcona=false
   const pdf = new jsPDF({
     orientation: 'landscape',
     unit: 'mm',
@@ -791,18 +796,6 @@ generaPDF(){
   const content = this.content.nativeElement;
 
   // Seleziona la colonna "Gestione Richiesta" e rimuovila sia dall'intestazione che dai dati
-  const headerColumn = content.querySelector('.argomento th:nth-child(5)');
-  const dataColumns = content.querySelectorAll('tbody tr td:nth-child(5)');
-
-  if (headerColumn) {
-    headerColumn.remove();
-  }
-
-  dataColumns.forEach(cell => {
-    if (cell) {
-      cell.remove();
-    }
-  });
 
   html2canvas(content, { scale: 2 })
     .then(canvas => {
@@ -814,10 +807,14 @@ generaPDF(){
       pdf.addImage(imageData, 'PNG', 0, 20, imgWidth, imgHeight);
 
       pdf.save('test.pdf');
+
+      
     });
+    
+
+    
+
 }
 
-
-  
 }
 
