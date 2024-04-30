@@ -12,3 +12,8 @@
     transform: rotate(90deg);
     transition: transform 0.3s ease; /* Opzionale: aggiunge una transizione fluida */
 }
+
+.avatar {
+  border: 2px solid white; /* Cambia lo spessore e il colore del bordo come desideri */
+}
+
