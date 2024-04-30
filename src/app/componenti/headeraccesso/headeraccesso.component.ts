@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 
 @Component({
@@ -6,14 +6,41 @@ import { AuthService } from '../../auth/auth.service';
   templateUrl: './headeraccesso.component.html',
   styleUrls: ['./headeraccesso.component.css']
 })
-export class HeaderaccessoComponent {
+export class HeaderaccessoComponent implements OnInit {
 
   flagDropdown: boolean = false;
 
   isRotated: boolean = false;
-  currentUser: string = 'Rossi'; 
+  currentUser: string =  '' ; 
+   url:string='';
+  
+  
+  
+  constructor(private auth : AuthService) {
+  }
+  ngOnInit(): void {
+   const user = sessionStorage.getItem('userName');
+   console.log('user: ', user);
+   this.currentUser = user;
+   
 
-  constructor(private auth : AuthService) {}
+   if(user==='rossi'){
+    this.url='https://www.lagazzettadelmezzogiorno.it/resizer/600/315/true/1544689307219.jpg--il_foggia_cerca_allenatore__delneri_e_out__ipotesi_delio_rossi.jpg?1544689307000';
+   }else if(user==='micocci'){
+    this.url='https://www.today.it/~media/horizontal-hi/11821207273640/avatar-la-leggenda-di-aang-3.jpg';
+   }else if(user==='giusti'){
+    this.url='https://t4.ftcdn.net/jpg/02/99/62/11/360_F_299621124_vutDKbNwRJG6poJRQQIMYfsc4tJCTO5E.jpg';
+   }else if(user==='desantis'){
+    this.url='https://upload.wikimedia.org/wikipedia/commons/9/98/Claudio_Lotito_datisenato.jpeg';
+   }else if(user==='biagi'){  
+    this.url='https://images.daznservices.com/di/library/DAZN_News/1e/4c/esultanza-kaka-mano-sul-cuore_1bm5wbi19l71n1ce6ppzodnf3w.png?t=-1542629153';
+   }
+  
+}
+  
+   
+  
+
   logout(){
     this.auth.removeAuthenticated();
   }
