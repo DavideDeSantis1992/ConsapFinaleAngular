@@ -89,10 +89,6 @@ export class InserimentoComponent implements OnInit {
     });
   }
 
-  disableKeyboardInput(event: KeyboardEvent): void {
-    event.preventDefault();
-  }
-
   openSalva() {
     const campi = [
       { id: 'numeroTicket', nome: 'Numero Ticket' },
@@ -267,17 +263,33 @@ export class InserimentoComponent implements OnInit {
     this.showErrorNumeroTicket = !/^\d{5}$/.test(inputText);
   }
 
-  handleKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Tab') {
-      const inputs = this.elRef.nativeElement.querySelectorAll('input');
-      const lastInput = inputs[inputs.length - 1];
-      if (document.activeElement === lastInput) {
-        event.preventDefault();
-        const firstInput = inputs[0];
-        if (firstInput) {
-          firstInput.focus();
-        }
+  // handleKeyDown(event: KeyboardEvent) {
+  //   if (event.key === 'Tab') {
+  //     const inputs = this.elRef.nativeElement.querySelectorAll('input');
+  //     const lastInput = inputs[inputs.length - 1];
+  //     if (document.activeElement === lastInput) {
+  //       event.preventDefault();
+  //       const firstInput = inputs[0];
+  //       if (firstInput) {
+  //         firstInput.focus();
+  //       }
+  //     }
+  //   }
+  // }
+
+  handleTabKey(event: KeyboardEvent): void {
+    if (event.key === 'Tab' && !event.shiftKey) {
+      event.preventDefault();
+      const firstInput = this.elRef.nativeElement.querySelector('[tabindex="1"]');
+      if (firstInput) {
+        firstInput.focus();
       }
     }
-  }
+  } 
+
+  disableKeyboardInput(event: KeyboardEvent): void {
+    if (event.key !== 'Tab') {
+      event.preventDefault();
+    }
+  } 
 }

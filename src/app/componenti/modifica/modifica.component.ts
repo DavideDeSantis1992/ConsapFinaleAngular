@@ -50,9 +50,7 @@ export class ModificaComponent implements OnInit {
     this.dataCreazione = dataCreazioneElement.value;
   }
 
-  disableKeyboardInput(event: KeyboardEvent): void {
-    event.preventDefault();
-  }
+ 
 
   prendiRichiestaConCombo() {
     const idParsato = parseInt(this.idRichiesta);
@@ -362,17 +360,33 @@ export class ModificaComponent implements OnInit {
     }
   }
 
-  handleKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Tab') {
-      const inputs = this.elRef.nativeElement.querySelectorAll('input');
-      const lastInput = inputs[inputs.length - 1];
-      if (document.activeElement === lastInput) {
-        event.preventDefault();
-        const firstInput = inputs[0];
-        if (firstInput) {
-          firstInput.focus();
-        }
+  // handleKeyDown(event: KeyboardEvent) {
+  //   if (event.key === 'Tab') {
+  //     const inputs = this.elRef.nativeElement.querySelectorAll('input');
+  //     const lastInput = inputs[inputs.length - 1];
+  //     if (document.activeElement === lastInput) {
+  //       event.preventDefault();
+  //       const firstInput = inputs[0];
+  //       if (firstInput) {
+  //         firstInput.focus();
+  //       }
+  //     }
+  //   }
+  // }
+
+  handleTabKey(event: KeyboardEvent): void {
+    if (event.key === 'Tab' && !event.shiftKey) {
+      event.preventDefault();
+      const firstInput = this.elRef.nativeElement.querySelector('[tabindex="1"]');
+      if (firstInput) {
+        firstInput.focus();
       }
     }
   }
+
+  disableKeyboardInput(event: KeyboardEvent): void {
+    if (event.key !== 'Tab') {
+      event.preventDefault();
+    }
+  } 
 }
