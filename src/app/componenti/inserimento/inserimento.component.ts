@@ -89,6 +89,10 @@ export class InserimentoComponent implements OnInit {
     });
   }
 
+  disableKeyboardInput(event: KeyboardEvent): void {
+    event.preventDefault();
+  }
+
   openSalva() {
     const campi = [
       { id: 'numeroTicket', nome: 'Numero Ticket' },
