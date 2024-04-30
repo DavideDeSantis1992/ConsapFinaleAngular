@@ -26,6 +26,7 @@ export class InserimentoComponent implements OnInit {
   statoApprovazioneOs!: StatoApprovazioneOs[];
   commessaOs!: CommessaOs[];
   router: any;
+  isData: boolean = false;
 
   dataCreazione: string = '';
 
@@ -45,6 +46,7 @@ export class InserimentoComponent implements OnInit {
       'dataCreazione'
     ) as HTMLInputElement;
     this.dataCreazione = dataCreazioneElement.value;
+    this.isData = true;
   }
 
   getApplicativo() {
@@ -280,16 +282,21 @@ export class InserimentoComponent implements OnInit {
   handleTabKey(event: KeyboardEvent): void {
     if (event.key === 'Tab' && !event.shiftKey) {
       event.preventDefault();
-      const firstInput = this.elRef.nativeElement.querySelector('[tabindex="1"]');
+      const firstInput =
+        this.elRef.nativeElement.querySelector('[tabindex="1"]');
       if (firstInput) {
         firstInput.focus();
       }
     }
-  } 
+  }
 
   disableKeyboardInput(event: KeyboardEvent): void {
     if (event.key !== 'Tab') {
       event.preventDefault();
     }
-  } 
+  }
+
+  checkData(event: any): void {
+    this.isData = event.target.value !== '';
+  }
 }
