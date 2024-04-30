@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { RichiestaService } from '../../service/richiesta.service';
 import {
   Applicativo,
@@ -13,12 +13,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 //import { Token } from '@angular/compiler';
 import { TokenService } from '../../service/token.service';
 
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
+
 @Component({
   selector: 'app-elenco',
   templateUrl: './elenco.component.html',
   styleUrls: ['./elenco.component.css'],
 })
 export class ElencoComponent implements OnInit {
+  
+  @ViewChild('content', { static: false }) content!: ElementRef;
+
   loading = true;
   showSpinner = true;
   richieste!: richiestaAttualeArr[];
@@ -745,5 +752,72 @@ export class ElencoComponent implements OnInit {
     }
   }
 
+//   generaPdf(): void {
+//     // Seleziona solo il contenuto con l'ID 'elencoDaStampare'
+//     const contentToPrint = document.getElementById('elencoDaStampare');
 
+//     // Verifica se il contenuto da stampare è stato trovato e se contiene un contenuto valido
+//     if (contentToPrint && contentToPrint.innerHTML.trim().length > 0) {
+//         // Calcola le dimensioni del documento basate sulla finestra del browser
+//         const docWidth = window.innerHeight; // Usa l'altezza del browser come larghezza del documento PDF
+//         const docHeight = window.innerWidth; // Usa la larghezza del browser come altezza del documento PDF
+
+//         // Crea un'istanza di jsPDF con il formato orizzontale del documento
+//         const doc = new jsPDF({
+//             orientation: 'landscape', // Imposta l'orientamento orizzontale
+//             unit: 'px', // Imposta l'unità di misura su pixel
+//             format: [docWidth, docHeight] // Imposta le dimensioni del documento
+//         });
+
+//         // Converte il contenuto selezionato in PDF
+//         doc.html(contentToPrint, {
+//             callback: function (pdf) {
+//                 // Salva il PDF
+//                 pdf.save("documento.pdf"); // Salva il PDF con un nome specifico
+//             }
+//         });
+//     } else {
+//         console.error('Il contenuto da stampare non è stato trovato o è vuoto.');
+//     }
+// }
+
+generaPDF(){
+  const pdf = new jsPDF({
+    orientation: 'landscape',
+    unit: 'mm',
+    format: 'a4',
+  });
+
+  const content = this.content.nativeElement;
+
+  // Seleziona la colonna "Gestione Richiesta" e rimuovila sia dall'intestazione che dai dati
+  const headerColumn = content.querySelector('.argomento th:nth-child(5)');
+  const dataColumns = content.querySelectorAll('tbody tr td:nth-child(5)');
+
+  if (headerColumn) {
+    headerColumn.remove();
+  }
+
+  dataColumns.forEach(cell => {
+    if (cell) {
+      cell.remove();
+    }
+  });
+
+  html2canvas(content, { scale: 2 })
+    .then(canvas => {
+      const imageData = canvas.toDataURL('image/png');
+      const imgWidth = 300;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      // Aggiungi il resto del contenuto sotto l'intestazione
+      pdf.addImage(imageData, 'PNG', 0, 20, imgWidth, imgHeight);
+
+      pdf.save('test.pdf');
+    });
 }
+
+
+  
+}
+

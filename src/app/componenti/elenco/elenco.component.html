@@ -138,7 +138,7 @@
     </div> 
     <!-- fine filtri -->
     <br>
-    <table class="table table-success table-borderless">
+    <table #content class="table table-success table-borderless" >
       <thead>
         <tr class="argomento">
           <th scope="col"  (click)="getElencoNumeroTicket()">
@@ -264,7 +264,7 @@
     <br>
     <div class="btn-container ">
       <div class="btn-example">
-        <button type="button" class="btn btn-secondary">Stampa</button>
+        <button type="button" class="btn btn-secondary" (click)="generaPDF()">Stampa</button>
       </div>
 
       
