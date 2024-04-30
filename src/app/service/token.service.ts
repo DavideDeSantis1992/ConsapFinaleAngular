@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+// import * as CryptoJS from 'crypto-js';
 import * as CryptoJS from 'crypto-js';
 
 @Injectable({

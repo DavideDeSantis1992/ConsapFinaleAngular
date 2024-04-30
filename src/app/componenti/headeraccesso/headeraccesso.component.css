@@ -17,3 +17,29 @@
   border: 2px solid white; /* Cambia lo spessore e il colore del bordo come desideri */
 }
 
+
+
+
+/* Media query per finestre grandi */
+@media screen and (min-width: 1200px) {
+  .bordoRotondo {
+      /* Stile per finestre grandi */
+      /* Usa size-xl per finestre grandi */
+      /* Aggiungi altri stili se necessario */
+      width: 100px; /* Ad esempio */
+      height: 100px; /* Ad esempio */
+  }
+}
+
+/* Media query per finestre normali */
+@media screen and (max-width: 1199px) {
+  .bordoRotondo {
+      /* Stile per finestre normali */
+      /* Usa size-lg per finestre normali */
+      /* Aggiungi altri stili se necessario */
+      width: 45px; /* Ad esempio */
+      height: 45px; /* Ad esempio */
+  }
+}
+
+
