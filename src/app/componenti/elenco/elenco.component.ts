@@ -810,10 +810,21 @@ generaPDF(){
 
       
     });
-    
 
-    
+}
 
+generaCsv(): void {
+  this.richiestaService.stampaCsv().subscribe((data: Blob) => {
+    const blob = new Blob([data], { type: 'text/csv' }); // Crea un oggetto Blob
+    const url = window.URL.createObjectURL(blob); // Ottiene l'URL del Blob
+    const a = document.createElement('a'); // Crea un elemento <a> per il download del file
+    a.href = url;
+    a.download = 'file.csv'; // Imposta il nome del file per il download
+    document.body.appendChild(a); // Aggiunge l'elemento <a> al DOM
+    a.click(); // Simula il click sull'elemento <a> per avviare il download
+    window.URL.revokeObjectURL(url); // Rilascia l'URL del Blob
+    document.body.removeChild(a); // Rimuove l'elemento <a> dal DOM dopo il download
+  });
 }
 
 }

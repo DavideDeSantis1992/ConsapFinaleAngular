@@ -249,4 +249,15 @@ export class RichiestaService {
 
     return this.http.post<any>(url, body, { headers }); // Restituisci l'observable
   }
+  stampaCsv(): Observable<Blob> {
+    const urlCsv = 'http://localhost:8080/richiesta/downloadCsv';
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`
+    });
+
+    return this.http.get(urlCsv, {
+      responseType: 'blob', // Specifica che si aspetta un oggetto Blob nella risposta
+      headers: headers
+    });
+  }
 }
