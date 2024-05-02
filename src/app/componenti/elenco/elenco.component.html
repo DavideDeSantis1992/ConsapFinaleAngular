@@ -158,7 +158,7 @@
               <use [attr.xlink:href]="ordinamentoDataCreazione === 'asc' ? '#it-expand' : null" ></use>
           </svg>
         </th>
-          <th scope="col" *ngIf="showGestioneArgomento">Gestione Richiesta</th>
+          <th scope="col" [hidden]="!showGestioneArgomento">Gestione Richiesta</th>
         </tr>
       </thead>
       <tbody>
@@ -167,7 +167,7 @@
           <td>{{ric.oggetto}}</td>
           <td>{{ric.applicativo.descApplicativo}}</td>
           <td>{{ric.dataCreazione | date:'dd-MM-yyyy'}}</td>
-          <td *ngIf="showGestioneIcona">
+          <td [hidden]="!showGestioneIcona">
             <a href="/ispeziona" style="margin-right: 25px;" (click)="prendiId(ric)">
               <svg class="icon icon-sm icon-secondary align-top me-1" aria-hidden="true">
                 <use href="#it-zoom-in" fill="black"></use>

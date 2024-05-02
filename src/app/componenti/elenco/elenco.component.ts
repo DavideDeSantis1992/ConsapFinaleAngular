@@ -60,6 +60,8 @@ export class ElencoComponent implements OnInit {
   showGestioneArgomento:boolean=true;
   showGestioneIcona:boolean=true;
 
+  tempGestioneRichiestaText: string = '';
+
   // TODO: SISTEMARE TABULAZIONE, MOMENTANEAMENTE DISATTIVATA PER QUESTO COMPONENTE
   @HostListener('keydown.Tab', ['$event'])
   handleTab(event: KeyboardEvent) {
@@ -756,38 +758,21 @@ export class ElencoComponent implements OnInit {
     }
   }
 
-//   generaPdf(): void {
-//     // Seleziona solo il contenuto con l'ID 'elencoDaStampare'
-//     const contentToPrint = document.getElementById('elencoDaStampare');
 
-//     // Verifica se il contenuto da stampare è stato trovato e se contiene un contenuto valido
-//     if (contentToPrint && contentToPrint.innerHTML.trim().length > 0) {
-//         // Calcola le dimensioni del documento basate sulla finestra del browser
-//         const docWidth = window.innerHeight; // Usa l'altezza del browser come larghezza del documento PDF
-//         const docHeight = window.innerWidth; // Usa la larghezza del browser come altezza del documento PDF
 
-//         // Crea un'istanza di jsPDF con il formato orizzontale del documento
-//         const doc = new jsPDF({
-//             orientation: 'landscape', // Imposta l'orientamento orizzontale
-//             unit: 'px', // Imposta l'unità di misura su pixel
-//             format: [docWidth, docHeight] // Imposta le dimensioni del documento
-//         });
 
-//         // Converte il contenuto selezionato in PDF
-//         doc.html(contentToPrint, {
-//             callback: function (pdf) {
-//                 // Salva il PDF
-//                 pdf.save("documento.pdf"); // Salva il PDF con un nome specifico
-//             }
-//         });
-//     } else {
-//         console.error('Il contenuto da stampare non è stato trovato o è vuoto.');
-//     }
-// }
 
-generaPDF(){
-  // this.showGestioneArgomento = false;
-  // this.showGestioneIcona=false
+
+generaPDF() {
+  // Nascondi il testo dell'elemento prima di catturare l'HTML
+  this.showGestioneArgomento = false;
+  this.showGestioneIcona = false;
+
+  // Salva temporaneamente il testo dell'elemento "Gestione Richiesta"
+  this.tempGestioneRichiestaText = this.content.nativeElement.querySelector('th[scope="col"]:last-child').textContent;
+  // Imposta il testo dell'elemento "Gestione Richiesta" come vuoto
+  this.content.nativeElement.querySelector('th[scope="col"]:last-child').textContent = '';
+
   const pdf = new jsPDF({
     orientation: 'landscape',
     unit: 'mm',
@@ -796,26 +781,24 @@ generaPDF(){
 
   const content = this.content.nativeElement;
 
-  // Seleziona la colonna "Gestione Richiesta" e rimuovila sia dall'intestazione che dai dati
-
   html2canvas(content, { scale: 2 })
     .then(canvas => {
       const imageData = canvas.toDataURL('image/png');
       const imgWidth = 300;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      // Aggiungi il resto del contenuto sotto l'intestazione
       pdf.addImage(imageData, 'PNG', 0, 20, imgWidth, imgHeight);
-
       pdf.save('test.pdf');
 
-      
+      // Ripristina il testo dell'elemento dopo aver generato il PDF
+      this.showGestioneArgomento = true;
+      this.showGestioneIcona = true;
+
+      // Ripristina il testo dell'elemento "Gestione Richiesta"
+      this.content.nativeElement.querySelector('th[scope="col"]:last-child').textContent = this.tempGestioneRichiestaText;
     });
-    
-
-    
-
 }
+
 
 
 
