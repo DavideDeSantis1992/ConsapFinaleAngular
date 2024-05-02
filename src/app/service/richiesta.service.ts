@@ -40,6 +40,8 @@ export class RichiestaService {
   private urlStatoApprovazioneOs = 'http://localhost:8080/statoApprovazioneOs';
   private urlCommessaOs = 'http://localhost:8080/commessaOs';
 
+  
+
   getToken(): string {
     let accessToken = '';
     if (typeof sessionStorage !== 'undefined') {
@@ -68,6 +70,26 @@ export class RichiestaService {
   //     })
   //   );
   // }
+
+ 
+
+
+  stampaCsv(): Observable<Blob> {
+    const urlCsv = 'http://localhost:8080/richiesta/downloadCsv';
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`
+    });
+
+    return this.http.get(urlCsv, {
+      responseType: 'blob', // Specifica che si aspetta un oggetto Blob nella risposta
+      headers: headers
+    });
+  }
+
+  
+
+
+
 
   loginRequest(data: any): Observable<any> {
     return this.http
@@ -111,6 +133,8 @@ export class RichiestaService {
 
     return this.http.post<any>(url, body, { headers }); // Restituisci l'observable
   }
+
+  
 
   elencoPaginatoStoricoPost(id: number): Observable<any> {
     // Cambiato il tipo di ritorno in Observable<any>

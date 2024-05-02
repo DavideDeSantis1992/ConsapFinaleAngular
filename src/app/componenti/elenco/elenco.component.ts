@@ -15,6 +15,7 @@ import { TokenService } from '../../service/token.service';
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -815,6 +816,36 @@ generaPDF(){
     
 
 }
+
+
+
+generaCsv(): void {
+ 
+  this.richiestaService.stampaCsv().subscribe((data: Blob) => {
+    const blob = new Blob([data], { type: 'text/csv' }); // Crea un oggetto Blob
+
+    const url = window.URL.createObjectURL(blob); // Ottiene l'URL del Blob
+    
+    // Crea un link temporaneo e lo aggiunge al DOM
+    const link = document.createElement('a');
+    link.href = url;
+    
+    link.download = 'file.csv'; // Imposta il nome predefinito per il file
+    document.body.appendChild(link);
+
+    // Simula un clic sul link per attivare la finestra di dialogo di salvataggio
+    link.click();
+
+    // Rimuove il link dal DOM dopo il download
+    document.body.removeChild(link);
+
+    window.URL.revokeObjectURL(url); // Rilascia l'URL del Blob
+  });
+
+
+}
+
+
 
 }
 

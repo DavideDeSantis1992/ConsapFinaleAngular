@@ -141,7 +141,7 @@
     <table #content class="table table-success table-borderless" >
       <thead>
         <tr class="argomento">
-          <th scope="col"  (click)="getElencoNumeroTicket()">
+          <th scope="col" (click)="getElencoNumeroTicket()">
             Numero Ticket
             <svg id="ticketIcon" class="icon icon-primary cursore " >
               <use [attr.xlink:href]="ordinamentoNumeroTicket === 'desc' ? '#it-collapse' : null" ></use>
@@ -265,22 +265,17 @@
     <div class="btn-container ">
       <div class="row">
         <div class="col-2">
-      <div class="btn-example">
-        <button type="button" class="btn btn-secondary" (click)="generaPDF()">Stampa PDF</button>
+          <div class="btn-example">
+            <button type="button" class="btn btn-secondary" (click)="generaPDF()">Genera PDF</button>
+          </div>
+        </div>
+    
+        <div class="col-2">
+          <div class="btn-example">
+            <button type="button" class="btn btn-primary" (click)="generaCsv()">Genera CSV</button>
+          </div>
+        </div>
       </div>
-      </div>
-
-      <div class="col-2">
-      <div class="btn-example">
-        <button type="button" class="btn btn-primary" >Stampa CSV</button>
-      </div>
-    </div>
-    </div>
-      
-      
-
-
-
     </div>
   </div>
   
