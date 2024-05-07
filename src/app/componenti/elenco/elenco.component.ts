@@ -15,8 +15,6 @@ import { TokenService } from '../../service/token.service';
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { saveAs } from 'file-saver';
-
 
 @Component({
   selector: 'app-elenco',

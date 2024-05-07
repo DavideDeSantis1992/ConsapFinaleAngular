@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap'; 
 import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -26,6 +26,7 @@ import { IspezionaComponent } from './componenti/ispeziona/ispeziona.component';
 import { ModificaComponent } from './componenti/modifica/modifica.component';
 
 import { PercorsoComponent } from './componenti/percorso/percorso.component';
+import { RegistrazioneComponent } from './componenti/registrazione/registrazione.component';
 
 
 
@@ -47,7 +48,8 @@ import { PercorsoComponent } from './componenti/percorso/percorso.component';
     ModificaComponent,
     
 
-    PercorsoComponent
+    PercorsoComponent,
+          RegistrazioneComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ import { PercorsoComponent } from './componenti/percorso/percorso.component';
     FormsModule,
     NgbDropdownModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration()

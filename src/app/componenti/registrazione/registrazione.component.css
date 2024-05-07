@@ -1,0 +1,76 @@
+.containers {
+    background-color: rgba(4, 48, 4, 0.347); /* Colore verde scuro con trasparenza al 50% */
+    
+    padding: 30px; /* Spazio interno per migliorare la leggibilità */
+    width: 100%; /* Occupa tutta l'ampiezza orizzontale */
+    box-sizing: border-box; /* Il padding è incluso nella larghezza e nell'altezza */
+}
+
+.text-center{
+    text-align: center;
+}
+
+  .form-group{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin-left: 25%;
+  }
+  
+  .input-label svg {
+    margin-right: 8px; /* Regola la distanza tra l'icona e il testo del label */
+  }
+  .select-wrapper {
+    position: relative;
+  }
+  
+  .dropdown-toggle {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+  }
+  
+  .dropdown-menu li {
+    cursor: pointer;
+    padding: 0.25rem 1.5rem;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .show-dropdown .dropdown-menu {
+    display: block;
+  }
+
+ 
+  
+  

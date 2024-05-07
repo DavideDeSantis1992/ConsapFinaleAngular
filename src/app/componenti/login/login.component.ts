@@ -1,5 +1,5 @@
-import { Component, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { RichiestaService } from '../../service/richiesta.service';
 import { TokenService } from '../../service/token.service';
@@ -9,7 +9,7 @@ import { TokenService } from '../../service/token.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
   isButtonDisabled: boolean = true;
@@ -20,8 +20,16 @@ export class LoginComponent {
     private richiestaService: RichiestaService,
     private authService: AuthService,
     private elRef: ElementRef,
-    private token: TokenService
+    private token: TokenService,
+    private route: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+    // this.route?.queryParams?.subscribe((params) => {
+    //   this.username = params['username'] || '';
+    //   this.password = params['password'] || '';
+    // });
+  }
 
   checkInputs(): void {
     this.isButtonDisabled = !(
@@ -42,7 +50,7 @@ export class LoginComponent {
           this.authService.setAuthenticated(encryptedToken);
           sessionStorage.setItem('userName', this.username);
           console.log('Utente attualmente connesso:', this.username);
-          
+
           this.router.navigate(['/homeaccesso']);
         } else {
           console.error(

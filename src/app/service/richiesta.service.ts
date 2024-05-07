@@ -22,6 +22,8 @@ export class RichiestaService {
 
   private urlLogin = 'http://localhost:8080/login';
 
+  private urlNewUtente = 'http://localhost:8080/utente/new';
+
   private urlBase = `http://localhost:8080/richiesta/${this.currentPage}`;
 
   private urlElenco = `http://localhost:8080/richiesta/${this.currentPage}-${this.pageSize}?campo=${this.campo}&ordinamento=${this.ordinamento}`;
@@ -88,7 +90,11 @@ export class RichiestaService {
 
   
 
-
+  registrazineRequest(data:any): Observable<any>{
+    return this.http.post<any>(this.urlNewUtente, data, {observe:'response'})
+    .pipe(tap((response)=>{
+    }));
+  }
 
 
   loginRequest(data: any): Observable<any> {
